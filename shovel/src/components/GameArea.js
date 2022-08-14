@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ShovelButton from "./ShovelButton";
 
 const GameScreen = styled.div`
 width: 100vw;
@@ -7,11 +8,15 @@ overflow: hidden;
 display: flex;
 justify-content: center;
 align-items: center;
-background-color: blanchedalmond;
 `;
 
+
 const GameArea = ({playerData})=>{
+
 return <GameScreen>
+    <ShovelButton>
+        <img src="/images/shovel.png" alt="SHOVEL"/>
+    </ShovelButton>
 
 </GameScreen>
 };
