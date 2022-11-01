@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const PlayerData = () => {
-    return(
+    return (
         <Wrapper>
             PLAYER DATA
         </Wrapper>

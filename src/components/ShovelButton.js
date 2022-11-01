@@ -1,10 +1,30 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {TbShovel} from "react-icons/tb";
+import ShovelIcon from "../img/shovel.png";
 
 const ShovelButton = () => {
+    const addEl = (x, y)=>{
+        const el = document.createElement('div');
+        el.innerText = "$";
+        el.style.fontSize = "50px"
+        el.style.color = "green";
+        el.style.position = "absolute";
+        el.style.width = "50px";
+        el.style.height = "50px";
+        el.style.top = y + 'px';
+        el.style.left = x + 'px';
+        el.style.zIndex = 9999;
+        el.style.pointerEvents = 'none';
+        el.animate({top:0, opacity:0}, {duration:2000, iterations:1});
+        document.body.appendChild(el);
+        setTimeout(()=>{
+            el.remove();
+        }, 1950);
+    };
+
     return (
-        <Wrapper>
-            <TbShovel size={100}/>
+        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY)}} id="shovelButton">
+            <Img src={ShovelIcon} alt="Shovel!" draggable="false"/>
         </Wrapper>
     );
 };
@@ -37,6 +57,10 @@ user-select: none;
     width: 60%;
     height: auto;
   }
+`;
+
+const Img = styled.img`
+height: 60%;
 `;
 
 export default ShovelButton;
