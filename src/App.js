@@ -5,11 +5,11 @@ function App() {
 
 
   return (
-    
+
     <PlayerContext>
-    <Game/>
+      <Game />
     </PlayerContext>
-    
+
   );
 }
 

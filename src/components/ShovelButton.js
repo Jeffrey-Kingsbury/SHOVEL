@@ -1,16 +1,17 @@
-import styled, { keyframes } from "styled-components";
-import {TbShovel} from "react-icons/tb";
+import { useContext } from "react";
+import styled from "styled-components";
 import ShovelIcon from "../img/shovel.png";
+import { playerContext } from "../PlayerContext";
 
 const ShovelButton = () => {
+    const { shovelManualClick } = useContext(playerContext);
+
     const addEl = (x, y)=>{
         const el = document.createElement('div');
         el.innerText = "$";
         el.style.fontSize = "50px"
         el.style.color = "green";
         el.style.position = "absolute";
-        el.style.width = "50px";
-        el.style.height = "50px";
         el.style.top = y + 'px';
         el.style.left = x + 'px';
         el.style.zIndex = 9999;
@@ -23,7 +24,7 @@ const ShovelButton = () => {
     };
 
     return (
-        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY)}} id="shovelButton">
+        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick()}} id="shovelButton">
             <Img src={ShovelIcon} alt="Shovel!" draggable="false"/>
         </Wrapper>
     );

@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { playerContext } from "../PlayerContext";
 
 const PlayerData = () => {
+    const { wallet } = useContext(playerContext);
+
     return (
         <Wrapper>
-            PLAYER DATA
+            Wallet: {wallet}$
         </Wrapper>
     );
 };
