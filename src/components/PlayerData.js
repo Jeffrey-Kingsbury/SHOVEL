@@ -3,11 +3,14 @@ import styled from "styled-components";
 import { playerContext } from "../PlayerContext";
 
 const PlayerData = () => {
-    const { wallet } = useContext(playerContext);
+    const { wallet, calculatePerSecond } = useContext(playerContext);
 
     return (
         <Wrapper>
-            Wallet: {wallet}$
+            Wallet: {wallet > 99999 ? wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : wallet}$
+            <br></br>
+            <br></br>
+            "Automation": {calculatePerSecond() > 99999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.
         </Wrapper>
     );
 };

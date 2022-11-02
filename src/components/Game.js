@@ -1,21 +1,30 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import Bg from "./Bg";
 import ShovelContainer from "./ShovelContainer";
 import PlayerData from "./PlayerData";
 import Shop from "./Shop";
+import { playerContext } from "../PlayerContext";
+import useInterval from "../use-interval.hook";
 
 const Game = () => {
+  const { wallet, setWallet, calculatePerSecond } = useContext(playerContext);
+
+  useInterval(() => {
+    setWallet(wallet + calculatePerSecond());
+  }, 1000);
+
   return (
     <Wrapper>
       <Bg />
 
       <Left>
-        <PlayerData/>
+        <PlayerData />
         <ShovelContainer />
       </Left>
 
       <Right>
-        <Shop/>
+        <Shop />
       </Right>
     </Wrapper>
   );
