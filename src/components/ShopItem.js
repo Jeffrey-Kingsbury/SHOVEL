@@ -3,20 +3,22 @@ import styled from "styled-components";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { playerContext } from "../PlayerContext";
+import LockIconSrc from "../img/padlock.png";
 
-const ShopItem = ({name, tippy, price, produce, img, owned}) => {
+const ShopItem = ({name, tippy, price, produce, img, owned, locked = true, id}) => {
     const { purchaseHelp } = useContext(playerContext);
-
+    
     return (
         <TippyWithStyle 
-        content={tippy}
+        content={locked ? "Keep going to unlock!" : tippy}
         placement="left"
         >
-        <Wrapper onClick={() => {purchaseHelp(name)}}>
-            <IconContainer>
+        <Wrapper locked={locked} onClick={() => { if(!locked) purchaseHelp(id);}}>
+            <IconContainer locked={locked}>
                 <Icon src={img} alt={`Purchase a ${name}`} draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
             </IconContainer>
-            <DataContainer>
+            {locked && <LockIcon src={LockIconSrc} alt="locked"/>}
+            <DataContainer locked={locked}>
                 <Name>{name}</Name>
                 <Price>Price: {price > 99999 ? price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : price}$</Price>
                 <Produce>Produces: {produce  > 99999 ? produce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : produce}$/second</Produce>
@@ -42,7 +44,7 @@ const Wrapper = styled.div`
 padding: .25rem 0;
 width: 90%;
 min-height: 8rem;
-background-color: beige;
+background-color: ${props => props.locked ? "gray" : "beige"};
 margin: 30px 0 0 0;
 border-radius: 15px;
 display: flex;
@@ -71,16 +73,22 @@ width: 30%;
 display: flex;
 align-items: center;
 justify-content: center;
+display: ${props => props.locked ? "none" : "flex"};
 `;
 
 const Icon = styled.img`
-width: 90%;
+width: 80%;
+`;
+
+const LockIcon = styled.img`
+    height: 80%;
+    margin: auto;
 `;
 
 const DataContainer = styled.div`
 width: 100%;
 height: 100%;
-display: flex;
+display: ${props => props.locked ? "none" : "flex"};
 flex-direction: column;
 justify-content: center;
 align-items: flex-start;

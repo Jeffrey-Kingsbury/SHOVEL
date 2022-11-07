@@ -4,18 +4,36 @@ import ShopItem from "./ShopItem";
 import { playerContext } from "../PlayerContext";
 
 const Shop = () => {
-    const { purchases } = useContext(playerContext);
+    const { purchases, playerData, hires } = useContext(playerContext);
+    const getOwned = (name)=>{
+        if(name === undefined){
+            return 0
+        }
 
+        let owned = 0;
 
+        purchases.every((e, i) => {
+            if(Object.keys(e)[0] === name){
+                owned = (purchases[i][name])
+                return false;
+            }
+            return true;
+        })
 
-    return(
+        return owned
+        
+    };
+
+    return (
         <Wrapper>
             <Title>"Hire" help</Title>
             <People>
-                {purchases.map(e => {
-                    return <ShopItem key={e.name} name={e.name} price={e.price} produce={e.produce} owned={e.owned} tippy={e.tippy} img={e.img}/>
+                {
+                    Object.entries(hires[0]).map(e => {
+                        const id = e[1];
+                        return <ShopItem key={e[0]} locked={id.lock(playerData)} id={e[0]} name={id.name} price={id.price} produce={id.produce} owned={getOwned(e[0])} tippy={id.tippy} img={id.img} />
 
-                })}
+                    })}
             </People>
 
             <Title>Upgrades</Title>

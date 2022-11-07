@@ -8,10 +8,13 @@ import { playerContext } from "../PlayerContext";
 import useInterval from "../use-interval.hook";
 
 const Game = () => {
-  const { wallet, setWallet, calculatePerSecond } = useContext(playerContext);
+  const { wallet, setWallet, calculatePerSecond, setPlayerData, playerData } = useContext(playerContext);
 
   useInterval(() => {
-    setWallet(wallet + calculatePerSecond());
+    if (calculatePerSecond() > 0) {
+      setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + calculatePerSecond(), autoClicksLT: playerData.autoClicksLT + 1 })
+      setWallet(wallet + calculatePerSecond());
+    }
   }, 1000);
 
   return (
