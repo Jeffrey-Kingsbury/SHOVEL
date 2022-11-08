@@ -60,8 +60,7 @@ const Left = styled.div`
 `;
 
 const Right = styled.div`
-  min-width: 600px;
-  width: 25%;
+  width: 600px;
   height: 100%;
   display: flex;
   justify-content: center;

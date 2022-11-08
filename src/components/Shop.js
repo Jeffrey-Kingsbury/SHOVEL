@@ -42,7 +42,16 @@ const Shop = () => {
 
             <Title>Upgrades</Title>
             <Upgrades>
-
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
+                    <UpgradeItem></UpgradeItem>
             </Upgrades>
         </Wrapper>
     );
@@ -86,15 +95,24 @@ padding: 0 0 1rem 0;
 const Upgrades = styled.div`
 width: 100%;
 height: 20%;
-display: flex;
-flex-wrap: wrap;
+display: grid;
+grid-template-columns: 100px 100px 100px 100px;
 align-items: center;
-justify-content: flex-start;
+justify-content: center;
+column-gap: 5px;
+row-gap: 15px;
 background-color: #edf2fa;
 border: 5px solid;
 border-radius: 10px;
-overflow-x: auto;
-padding: 0 0 1rem 0;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 15px 0;
+`;
+
+const UpgradeItem = styled.div`
+width: 100px;
+height: 100px;
+background-color: green;
 `;
 
 export default Shop;
