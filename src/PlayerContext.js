@@ -26,7 +26,6 @@ const PlayerContext = ({ children }) => {
     }, "playerData")[0]);
     
     
-    console.log(upgradeItems.specialMilk.purchase(purchases, wallet))
     useEffect(() => {
         localStorage.setItem("wallet", wallet);
     }, [wallet]);
@@ -59,7 +58,7 @@ const PlayerContext = ({ children }) => {
     const calculatePerSecond = () => {
         let ps = 0;
         purchases.forEach(e => {
-            ps += ([Object.values(e)[0]] * hires[0][Object.keys(e)[0]].produce);
+            ps += ([Object.values(e)[0]] * Object.values(e)[1][0].produce);
 
         })
         return ps;
