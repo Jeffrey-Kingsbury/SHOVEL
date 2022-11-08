@@ -11,16 +11,20 @@ const Shop = () => {
         }
 
         let owned = 0;
+        let price = 0;
+        let produce = 0;
 
         purchases.every((e, i) => {
             if(Object.keys(e)[0] === name){
                 owned = (purchases[i][name])
+                price = (purchases[i].data[0].price)
+                produce = (purchases[i].data[0].produce)
                 return false;
             }
             return true;
         })
 
-        return owned
+        return {owned:owned, price:price, produce:produce};
         
     };
 
@@ -31,7 +35,7 @@ const Shop = () => {
                 {
                     Object.entries(hires[0]).map(e => {
                         const id = e[1];
-                        return <ShopItem key={e[0]} locked={id.lock(playerData)} id={e[0]} name={id.name} price={id.price} produce={id.produce} owned={getOwned(e[0])} tippy={id.tippy} img={id.img} />
+                        return <ShopItem key={e[0]} locked={id.lock(playerData, purchases)} id={e[0]} name={id.name} price={getOwned(e[0]).price} produce={getOwned(e[0]).produce} owned={getOwned(e[0]).owned} tippy={id.tippy} img={id.img} />
 
                     })}
             </People>
