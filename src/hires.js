@@ -1,14 +1,14 @@
-import ToddlerSrc from "../img/baby.png";
-import LocalTeenSrc from "../img/boy.png";
-import SnowbaSrc from "../img/snoomba.png";
-import MagicShovelSrc from "../img/shovel.png";
-import WorkerSrc from "../img/worker.png";
-import CityPlowSrc from "../img/snowplow.png";
-import SidewalkPlowSrc from "../img/bulldozer.png";
-import UfoSrc from "../img/ufo.png";
-import BlackHoleSrc from "../img/black-hole.png";
-import HellSrc from "../img/hell.png";
-import DemonSrc from "../img/demon.png";
+import ToddlerSrc from "./img/baby.png";
+import LocalTeenSrc from "./img/boy.png";
+import SnowbaSrc from "./img/snoomba.png";
+import MagicShovelSrc from "./img/shovel.png";
+import WorkerSrc from "./img/worker.png";
+import CityPlowSrc from "./img/snowplow.png";
+import SidewalkPlowSrc from "./img/bulldozer.png";
+import UfoSrc from "./img/ufo.png";
+import BlackHoleSrc from "./img/black-hole.png";
+import HellSrc from "./img/hell.png";
+import DemonSrc from "./img/demon.png";
 
 
 export const hires = [

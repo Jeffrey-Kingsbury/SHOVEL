@@ -2,28 +2,31 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import usePersistedState from "./usePersistedState";
-import { hires } from "./components/hires";
+import { hires } from "./hires";
+import {upgradeItems} from "./upgradeItems";
 
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
+    
     const [wallet, setWallet] = useState(usePersistedState(0, "wallet")[0]);
-
+    
     const [purchases, setPurchases] = useState(usePersistedState(Object.entries(hires[0]).map(e => {
         return {
             [e[0]]: 0,
             data: [e[1]]
         };
     }), "purchases")[0]);
-
+    
     const [upgrades, setUpgrades] = useState(usePersistedState({}, "upgrades")[0]);
     const [playerData, setPlayerData] = useState(usePersistedState({
         manualClicksLT: 0,
         autoClicksLT: 0,
         lifetimeWallet: 0
     }, "playerData")[0]);
-
-
+    
+    
+    console.log(upgradeItems.specialMilk.purchase(purchases, wallet))
     useEffect(() => {
         localStorage.setItem("wallet", wallet);
     }, [wallet]);
