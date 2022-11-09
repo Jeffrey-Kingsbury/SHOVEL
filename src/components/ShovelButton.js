@@ -2,19 +2,22 @@ import { useContext } from "react";
 import styled from "styled-components";
 import ShovelIcon from "../img/shovel.png";
 import { playerContext } from "../PlayerContext";
+import moneySrc from "../img/dollar.png";
 
 const ShovelButton = () => {
     const { shovelManualClick } = useContext(playerContext);
 
+
     const addEl = (x, y)=>{
-        const el = document.createElement('div');
-        el.innerText = "$";
-        el.style.fontSize = "50px"
+        const el = document.createElement('img');
+        el.src = `${moneySrc}`;
+        el.style.width = "50px"
         el.style.color = "green";
         el.style.position = "absolute";
         el.style.top = y + 'px';
         el.style.left = x + 'px';
         el.style.zIndex = 9999;
+        el.style.transform = `rotate(25deg)`;
         el.style.pointerEvents = 'none';
         el.animate({top:0, opacity:0}, {duration:2000, iterations:1});
         document.body.appendChild(el);
@@ -24,7 +27,7 @@ const ShovelButton = () => {
     };
 
     return (
-        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick()}} id="shovelButton">
+        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick();}} id="shovelButton">
             <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
         </Wrapper>
     );

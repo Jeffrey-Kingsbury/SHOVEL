@@ -3,29 +3,29 @@ import { useState } from "react";
 import { createContext } from "react";
 import usePersistedState from "./usePersistedState";
 import { hires } from "./hires";
-import {upgradeItems} from "./upgradeItems";
+import { upgradeItems } from "./upgradeItems";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
-    
+
     const [wallet, setWallet] = useState(usePersistedState(0, "wallet")[0]);
-    
     const [purchases, setPurchases] = useState(usePersistedState(Object.entries(hires[0]).map(e => {
         return {
             [e[0]]: 0,
             data: [e[1]]
         };
     }), "purchases")[0]);
-    
-    const [upgrades, setUpgrades] = useState(usePersistedState({}, "upgrades")[0]);
+    const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "upgrades")[0]);
     const [playerData, setPlayerData] = useState(usePersistedState({
         manualClicksLT: 0,
         autoClicksLT: 0,
         lifetimeWallet: 0
     }, "playerData")[0]);
-    
-    
+
+
     useEffect(() => {
         localStorage.setItem("wallet", wallet);
     }, [wallet]);
@@ -42,6 +42,20 @@ const PlayerContext = ({ children }) => {
         localStorage.setItem("playerData", JSON.stringify(playerData));
     }, [playerData]);
 
+
+    const notEnoughMoneyToast = () => {
+        if (!toast.isActive("noMoney")) toast.error("You cannot afford this!", {
+            toastId: "noMoney",
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
 
     const addToWallet = (numToAdd) => {
         setWallet(wallet + numToAdd);
@@ -71,8 +85,7 @@ const PlayerContext = ({ children }) => {
 
             if (Object.keys(e)[0] === name) {
                 if (wallet - e[Object.keys(e)[1]][0].price < 0) {
-                    console.log(e)
-                    console.log("Not enough money");
+                    notEnoughMoneyToast();
                     return e;
                 };
 
@@ -88,9 +101,25 @@ const PlayerContext = ({ children }) => {
         setPurchases(hire);
     }
 
+    const purchaseUpgrade = (id) => {
+        const walletCheck = wallet - upgradeItems[id].price;
+        switch (walletCheck) {
+            case walletCheck < 0:
+                notEnoughMoneyToast();
+                break;
+
+            default:
+                setUpgrades(upgradeItems[id].purchase(purchases));
+                return;
+        }
+    }
+
     return (
-        <playerContext.Provider value={{ wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires }}>
+        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems }}>
             {children}
+            <ToastContainer
+                limit={4}
+            />
         </playerContext.Provider>
     );
 };

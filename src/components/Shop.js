@@ -2,9 +2,14 @@ import { useContext } from "react";
 import styled from "styled-components";
 import ShopItem from "./ShopItem";
 import { playerContext } from "../PlayerContext";
+import { upgradeItems } from "../upgradeItems";
 
 const Shop = () => {
-    const { purchases, playerData, hires } = useContext(playerContext);
+    const { purchases, playerData, hires, UpgradeItems } = useContext(playerContext);
+
+    console.log(Object.keys(upgradeItems))
+
+
     const getOwned = (name)=>{
         if(name === undefined){
             return 0
@@ -42,16 +47,17 @@ const Shop = () => {
 
             <Title>Upgrades</Title>
             <Upgrades>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
-                    <UpgradeItem></UpgradeItem>
+
+                {
+                    Object.keys(upgradeItems).map(e => {
+                        return <UpgradeItem>
+                            <img src={upgradeItems[e].src} alt="Special milk"/>
+                            <p>
+                                {upgradeItems[e].name}
+                                </p>
+                        </UpgradeItem>
+                    })
+                }
             </Upgrades>
         </Wrapper>
     );
@@ -110,9 +116,23 @@ padding: 15px 0;
 `;
 
 const UpgradeItem = styled.div`
-width: 100px;
+width: 150px;
 height: 100px;
-background-color: green;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: white;
+border: 5px black solid;
+img {
+    height: 60px;
+}
+p{
+    width: 100px;
+    bottom: -15px;
+    text-align: center;
+}
 `;
 
 export default Shop;

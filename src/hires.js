@@ -23,7 +23,7 @@ export const hires = [
             lock: (playerData) => {
                 return false;
             }
-        },
+        },  
         localTeen: {
             name: "Local teen",
             img: LocalTeenSrc,

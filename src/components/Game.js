@@ -7,9 +7,9 @@ import Shop from "./Shop";
 import { playerContext } from "../PlayerContext";
 import useInterval from "../use-interval.hook";
 
+
 const Game = () => {
   const { wallet, setWallet, calculatePerSecond, setPlayerData, playerData } = useContext(playerContext);
-
   useInterval(() => {
     if (calculatePerSecond() > 0) {
       setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + calculatePerSecond(), autoClicksLT: playerData.autoClicksLT + 1 })
@@ -29,6 +29,7 @@ const Game = () => {
       <Right>
         <Shop />
       </Right>
+
     </Wrapper>
   );
 };
