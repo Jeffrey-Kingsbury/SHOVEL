@@ -18,11 +18,15 @@ const PlayerContext = ({ children }) => {
             data: [e[1]]
         };
     }), "purchases")[0]);
+
     const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "upgrades")[0]);
+
+    const [purchasedUpgrades, setPurchasedUpgrades] = useState(usePersistedState([], "purchasedUpgrades")[0]);
+
     const [playerData, setPlayerData] = useState(usePersistedState({
         manualClicksLT: 0,
         autoClicksLT: 0,
-        lifetimeWallet: 0
+        lifetimeWallet: 0,
     }, "playerData")[0]);
 
 
@@ -42,6 +46,9 @@ const PlayerContext = ({ children }) => {
         localStorage.setItem("playerData", JSON.stringify(playerData));
     }, [playerData]);
 
+    useEffect(() => {
+        localStorage.setItem("purchasedUpgrades", JSON.stringify(purchasedUpgrades));
+    }, [purchasedUpgrades]);
 
     const notEnoughMoneyToast = () => {
         if (!toast.isActive("noMoney")) toast.error("You cannot afford this!", {
@@ -102,20 +109,18 @@ const PlayerContext = ({ children }) => {
     }
 
     const purchaseUpgrade = (id) => {
-        const walletCheck = wallet - upgradeItems[id].price;
-        switch (walletCheck) {
-            case walletCheck < 0:
-                notEnoughMoneyToast();
-                break;
-
-            default:
-                setUpgrades(upgradeItems[id].purchase(purchases));
-                return;
+        if (wallet - upgradeItems[id].price < 0) {
+            return notEnoughMoneyToast();
         }
+
+        setWallet(wallet - upgradeItems[id].price);
+        setPurchasedUpgrades((purchasedUpgrades) => [...purchasedUpgrades, id])
+        upgradeItems[id].purchase(purchases);
+
     }
 
     return (
-        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems }}>
+        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems, purchasedUpgrades, setPurchasedUpgrades }}>
             {children}
             <ToastContainer
                 limit={4}

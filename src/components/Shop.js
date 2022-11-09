@@ -3,15 +3,14 @@ import styled from "styled-components";
 import ShopItem from "./ShopItem";
 import { playerContext } from "../PlayerContext";
 import { upgradeItems } from "../upgradeItems";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 const Shop = () => {
-    const { purchases, playerData, hires, UpgradeItems } = useContext(playerContext);
+    const { purchases, playerData, hires, UpgradeItems, purchasedUpgrades, purchaseUpgrade} = useContext(playerContext);
 
-    console.log(Object.keys(upgradeItems))
-
-
-    const getOwned = (name)=>{
-        if(name === undefined){
+    const getOwned = (name) => {
+        if (name === undefined) {
             return 0
         }
 
@@ -20,7 +19,7 @@ const Shop = () => {
         let produce = 0;
 
         purchases.every((e, i) => {
-            if(Object.keys(e)[0] === name){
+            if (Object.keys(e)[0] === name) {
                 owned = (purchases[i][name])
                 price = (purchases[i].data[0].price)
                 produce = (purchases[i].data[0].produce)
@@ -29,8 +28,8 @@ const Shop = () => {
             return true;
         })
 
-        return {owned:owned, price:price, produce:produce};
-        
+        return { owned: owned, price: price, produce: produce };
+
     };
 
     return (
@@ -50,19 +49,50 @@ const Shop = () => {
 
                 {
                     Object.keys(upgradeItems).map(e => {
-                        return <UpgradeItem>
-                            <img src={upgradeItems[e].src} alt="Special milk"/>
-                            <p>
-                                {upgradeItems[e].name}
-                                </p>
-                        </UpgradeItem>
+                        if (upgradeItems[e].lock(playerData, purchases, purchasedUpgrades) === false) return <TippyWithStyle
+                            key={upgradeItems[e].name}
+                            content={
+                                (
+                                    <div style={{ padding: "5px" }}>
+                                        <strong>
+                                            {upgradeItems[e].name} - {upgradeItems[e].price}$
+                                            <hr />
+                                        </strong>
+                                        <p>{upgradeItems[e].desc}</p>
+                                        <i style={{ fontSize: "medium" }}>"{upgradeItems[e].tippy}"</i>
+                                    </div>
+                                )
+                            }
+                            placement="left"
+                        >
+                            <UpgradeItem onClick={()=>{purchaseUpgrade(upgradeItems[e].id)}} key={upgradeItems[e].id} draggable="false" src={upgradeItems[e].src} alt={upgradeItems[e].name} />
+                        </TippyWithStyle>
+                        else return false
                     })
                 }
+
             </Upgrades>
         </Wrapper>
     );
 };
 
+const TippyWithStyle = styled(Tippy)`
+    min-height: 100px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    opacity: 90%;
+    z-index: 9999;
+`;
+
+const UpgradeTippy = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 const Wrapper = styled.div`
 width: 90%;
 height: 100%;
@@ -102,11 +132,10 @@ const Upgrades = styled.div`
 width: 100%;
 height: 20%;
 display: grid;
-grid-template-columns: 100px 100px 100px 100px;
-align-items: center;
+grid-template-columns: repeat(auto-fill, 70px);
 justify-content: center;
 column-gap: 5px;
-row-gap: 15px;
+row-gap: 0;
 background-color: #edf2fa;
 border: 5px solid;
 border-radius: 10px;
@@ -115,24 +144,27 @@ overflow-x: hidden;
 padding: 15px 0;
 `;
 
-const UpgradeItem = styled.div`
-width: 150px;
-height: 100px;
-position: relative;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background-color: white;
-border: 5px black solid;
-img {
-    height: 60px;
-}
-p{
-    width: 100px;
-    bottom: -15px;
-    text-align: center;
-}
+const UpgradeItem = styled.img`
+    width: 50px;
+    transition: all .1s ease-in-out;
+    border: 4px solid black;
+    border-radius: 5px;
+    background-color: beige;
+    padding: 5px;
+    box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .5);
+    cursor: pointer;
+    user-select: none;
+    margin: 5px 0;
+
+    &:hover{
+        transform: scale(1.05);
+        box-shadow: 0 5px 8px 5px rgba(0, 0, 0, .2);
+    }
+
+    &:active{
+        transform: scale(.95);
+        box-shadow: 0 0 1px 5px rgba(0, 0, 0, .2);
+    }
 `;
 
 export default Shop;
