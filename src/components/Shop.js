@@ -58,7 +58,10 @@ const Shop = () => {
                                             {upgradeItems[e].name} - {upgradeItems[e].price}$
                                             <hr />
                                         </strong>
-                                        <p>{upgradeItems[e].desc}</p>
+                                        <strong style={{ margin:0, textDecoration:"underline" }}>
+                                            Effect:
+                                        </strong>
+                                        <p style={{ marginTop:0 }}>{upgradeItems[e].desc}</p>
                                         <i style={{ fontSize: "medium" }}>"{upgradeItems[e].tippy}"</i>
                                     </div>
                                 )

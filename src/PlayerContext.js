@@ -71,7 +71,11 @@ const PlayerContext = ({ children }) => {
     const shovelManualClick = () => {
         //TODO check for upgrades
         const upgrades = 0;
-        const click = 1;
+        let click = 1;
+        if(purchasedUpgrades.includes("superShovel1")){
+            click = 10;
+        };
+        
         setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + click + upgrades, manualClicksLT: playerData.manualClicksLT + 1 })
         addToWallet(click + upgrades);
     };
