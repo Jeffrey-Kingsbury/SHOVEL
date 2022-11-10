@@ -6070,6 +6070,11 @@ loader-utils@^3.2.0:
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-3.2.0.tgz#bcecc51a7898bee7473d4bc6b845b23af8304d4f"
   integrity sha512-HVl9ZqccQihZ7JM85dco1MvO9G+ONvxoGa9rkhzFsneGLKSUg1gJf9bWzhRhcvm2qChhWpebQhP44qxjKIUCaQ==
 
+localstorage-slim@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/localstorage-slim/-/localstorage-slim-2.3.0.tgz#ff2a27660af352628e0c195f59e18d160d30b793"
+  integrity sha512-vGuIEXmoSseZW2dO7Y9vFIs2iBORvxSMlFBpNQpTpuE/s9/myj1Kxz3iQsyDMSRyusLB/Z4T/hlcMH36PUiJrg==
+
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-3.0.0.tgz#dbec3b3ab759758071b58fe59fc41871af21400e"

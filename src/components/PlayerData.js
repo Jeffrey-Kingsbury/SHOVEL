@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { playerContext } from "../PlayerContext";
+import ls from 'localstorage-slim';
 
 const PlayerData = () => {
     const { wallet, calculatePerSecond } = useContext(playerContext);
@@ -14,7 +15,7 @@ const PlayerData = () => {
             <br></br>
             <br></br>
             <button onClick={()=>{localStorage.clear(); window.location.reload();}}>reset</button>
-            <button onClick={()=>{localStorage.clear(); localStorage.setItem("wallet", 100000000000);window.location.reload();}}>reset with money</button>
+            <button onClick={()=>{localStorage.clear(); ls.set("wallet", 100000000000, {encrypt:true});window.location.reload();}}>reset with money</button>
            
         </Wrapper>
     );

@@ -6,6 +6,7 @@ import { hires } from "./hires";
 import { upgradeItems } from "./upgradeItems";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ls from 'localstorage-slim';
 
 export const playerContext = createContext();
 
@@ -31,23 +32,23 @@ const PlayerContext = ({ children }) => {
 
 
     useEffect(() => {
-        localStorage.setItem("wallet", wallet);
+        ls.set("wallet", wallet, {encrypt:true});
     }, [wallet]);
 
     useEffect(() => {
-        localStorage.setItem("purchases", JSON.stringify(purchases));
+        ls.set("purchases", JSON.stringify(purchases), {encrypt:true});
     }, [purchases]);
 
     useEffect(() => {
-        localStorage.setItem("upgrades", JSON.stringify(upgrades));
+        ls.set("upgrades", JSON.stringify(upgrades), {encrypt:true});
     }, [upgrades]);
 
     useEffect(() => {
-        localStorage.setItem("playerData", JSON.stringify(playerData));
+        ls.set("playerData", JSON.stringify(playerData), {encrypt:true});
     }, [playerData]);
 
     useEffect(() => {
-        localStorage.setItem("purchasedUpgrades", JSON.stringify(purchasedUpgrades));
+        ls.set("purchasedUpgrades", JSON.stringify(purchasedUpgrades), {encrypt:true});
     }, [purchasedUpgrades]);
 
     const notEnoughMoneyToast = () => {
