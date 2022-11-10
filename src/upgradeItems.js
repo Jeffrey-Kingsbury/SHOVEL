@@ -96,7 +96,7 @@ export const upgradeItems = {
     lock: (playerData, purchases, purchasedUpgrades) => {
       return purchases.every(e => {
         if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 1 && !purchasedUpgrades.includes('pyromania1')) {
+          if (e.localTeen >= 30 && !purchasedUpgrades.includes('pyromania1')) {
             return false
           }
           return true
@@ -109,7 +109,7 @@ export const upgradeItems = {
   pyromania2: {
     name: "Pyromania - Level 2",
     id: "pyromania2",
-    desc: "Local teens will produce 2x more money!",
+    desc: "Local teens will produce 3x more money!",
     tippy: "You can get flamethrowers at the thrift shop?!",
     src: Pyro2Src,
     price: 100000,
@@ -118,7 +118,7 @@ export const upgradeItems = {
       const upgrade = purchases.map((e) => {
         if (Object.keys(e)[0] === "localTeen") {
           e[Object.keys(e)[1]][0].produce =
-            e[Object.keys(e)[1]][0].produce * 2;
+            e[Object.keys(e)[1]][0].produce * 3;
           return e;
         }
         return e;
@@ -128,7 +128,7 @@ export const upgradeItems = {
     lock: (playerData, purchases, purchasedUpgrades) => {
       return purchases.every(e => {
         if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 1 && !purchasedUpgrades.includes('pyromania2') && purchasedUpgrades.includes('pyromania1')) {
+          if (e.localTeen >= 50 && !purchasedUpgrades.includes('pyromania2') && purchasedUpgrades.includes('pyromania1')) {
             return false
           }
           return true

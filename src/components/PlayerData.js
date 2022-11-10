@@ -15,7 +15,7 @@ const PlayerData = () => {
             <br></br>
             <br></br>
             <button onClick={()=>{localStorage.clear(); window.location.reload();}}>reset</button>
-            <button onClick={()=>{localStorage.clear(); ls.set("wallet", 100000000000, {encrypt:true});window.location.reload();}}>reset with money</button>
+            <button onClick={()=>{localStorage.clear(); ls.set("!@$fd!#@%", 100000000000, {encrypt:true});window.location.reload();}}>reset with money</button>
            
         </Wrapper>
     );

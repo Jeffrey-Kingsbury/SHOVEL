@@ -7,48 +7,48 @@ import { upgradeItems } from "./upgradeItems";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ls from 'localstorage-slim';
-
+ls.config.encrypt = true;
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
 
-    const [wallet, setWallet] = useState(usePersistedState(0, "wallet")[0]);
+    const [wallet, setWallet] = useState(usePersistedState(0, "!@$fd!#@%")[0]);
     const [purchases, setPurchases] = useState(usePersistedState(Object.entries(hires[0]).map(e => {
         return {
             [e[0]]: 0,
             data: [e[1]]
         };
-    }), "purchases")[0]);
+    }), "!@$dp!@#urr")[0]);
 
-    const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "upgrades")[0]);
+    const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "#!@E!#c")[0]);
 
-    const [purchasedUpgrades, setPurchasedUpgrades] = useState(usePersistedState([], "purchasedUpgrades")[0]);
+    const [purchasedUpgrades, setPurchasedUpgrades] = useState(usePersistedState([], "d!@$df1!")[0]);
 
     const [playerData, setPlayerData] = useState(usePersistedState({
         manualClicksLT: 0,
         autoClicksLT: 0,
         lifetimeWallet: 0,
-    }, "playerData")[0]);
+    }, "p@#$2D123")[0]);
 
 
     useEffect(() => {
-        ls.set("wallet", wallet, {encrypt:true});
+        ls.set("!@$fd!#@%", wallet);
     }, [wallet]);
 
     useEffect(() => {
-        ls.set("purchases", JSON.stringify(purchases), {encrypt:true});
+        ls.set("!@$dp!@#urr", JSON.stringify(purchases));
     }, [purchases]);
 
     useEffect(() => {
-        ls.set("upgrades", JSON.stringify(upgrades), {encrypt:true});
+        ls.set("#!@E!#c", JSON.stringify(upgrades));
     }, [upgrades]);
 
     useEffect(() => {
-        ls.set("playerData", JSON.stringify(playerData), {encrypt:true});
+        ls.set("p@#$2D123", JSON.stringify(playerData));
     }, [playerData]);
 
     useEffect(() => {
-        ls.set("purchasedUpgrades", JSON.stringify(purchasedUpgrades), {encrypt:true});
+        ls.set("d!@$df1!", JSON.stringify(purchasedUpgrades));
     }, [purchasedUpgrades]);
 
     const notEnoughMoneyToast = () => {
