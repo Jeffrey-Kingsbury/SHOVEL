@@ -52,7 +52,7 @@ const PlayerContext = ({ children }) => {
     }, [purchasedUpgrades]);
 
     const notEnoughMoneyToast = () => {
-        if (!toast.isActive("noMoney")) toast.error("You cannot afford this!", {
+        if (!toast.isActive("noMoney")) toast.error("Congratulations! You're broke and can't afford this!", {
             toastId: "noMoney",
             position: "bottom-center",
             autoClose: 5000,
@@ -73,10 +73,10 @@ const PlayerContext = ({ children }) => {
         //TODO check for upgrades
         const upgrades = 0;
         let click = 1;
-        if(purchasedUpgrades.includes("superShovel1")){
+        if (purchasedUpgrades.includes("superShovel1")) {
             click = 10;
         };
-        
+
         setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + click + upgrades, manualClicksLT: playerData.manualClicksLT + 1 })
         addToWallet(click + upgrades);
     };
