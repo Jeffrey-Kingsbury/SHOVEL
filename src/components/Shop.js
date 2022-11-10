@@ -90,12 +90,6 @@ const TippyWithStyle = styled(Tippy)`
     z-index: 9999;
 `;
 
-const UpgradeTippy = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`;
 const Wrapper = styled.div`
 width: 90%;
 height: 100%;
@@ -129,6 +123,33 @@ border: 5px solid;
 border-radius: 10px;
 overflow-x: auto;
 padding: 0 0 1rem 0;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  display: block;
+  border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 5px;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  border-radius: 5px;
+
+}
 `;
 
 const Upgrades = styled.div`
@@ -145,6 +166,27 @@ border-radius: 10px;
 overflow-y: auto;
 overflow-x: hidden;
 padding: 15px 0;
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  display: block;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 `;
 
 const UpgradeItem = styled.img`

@@ -28,7 +28,7 @@ const ShovelButton = () => {
 
     return (
         <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick();}} id="shovelButton">
-            <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
+         <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
         </Wrapper>
     );
 };

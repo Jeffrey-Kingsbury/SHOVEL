@@ -11,6 +11,11 @@ const PlayerData = () => {
             <br></br>
             <br></br>
             "Automation": {calculatePerSecond() > 99999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.
+            <br></br>
+            <br></br>
+            <button onClick={()=>{localStorage.clear(); window.location.reload();}}>reset</button>
+            <button onClick={()=>{localStorage.clear(); localStorage.setItem("wallet", 100000000000);window.location.reload();}}>reset with money</button>
+           
         </Wrapper>
     );
 };

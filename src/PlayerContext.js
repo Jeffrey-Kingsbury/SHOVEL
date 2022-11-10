@@ -113,6 +113,7 @@ const PlayerContext = ({ children }) => {
     }
 
     const purchaseUpgrade = (id) => {
+        console.log(id)
         if (wallet - upgradeItems[id].price < 0) {
             return notEnoughMoneyToast();
         }
