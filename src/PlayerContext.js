@@ -4,6 +4,7 @@ import { createContext } from "react";
 import usePersistedState from "./usePersistedState";
 import { hires } from "./hires";
 import { upgradeItems } from "./upgradeItems";
+import { achievements } from "./achievements";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ls from 'localstorage-slim';
@@ -23,13 +24,14 @@ const PlayerContext = ({ children }) => {
     const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "#!@E!#c")[0]);
 
     const [purchasedUpgrades, setPurchasedUpgrades] = useState(usePersistedState([], "d!@$df1!")[0]);
-
+    const [unlockedAchievements, setUnlockedAchievements] = useState(usePersistedState({unlocked:[]}, "!A%!R!@$%^")[0]);
     const [playerData, setPlayerData] = useState(usePersistedState({
         manualClicksLT: 0,
         autoClicksLT: 0,
         lifetimeWallet: 0,
+        lifetimeClickWallet:0,
+        lifetimeAutoWallet:0
     }, "p@#$2D123")[0]);
-
 
     useEffect(() => {
         ls.set("!@$fd!#@%", wallet);
@@ -48,20 +50,41 @@ const PlayerContext = ({ children }) => {
     }, [playerData]);
 
     useEffect(() => {
+        ls.set("!A%!R!@$%^", JSON.stringify(unlockedAchievements));
+    }, [unlockedAchievements]);
+
+    useEffect(() => {
         ls.set("d!@$df1!", JSON.stringify(purchasedUpgrades));
     }, [purchasedUpgrades]);
 
+
+    const achievementToast = (name) => {
+        toast.success("Achievement unlocked! - " + name, {
+            icon:"🏆",
+            pauseOnFocusLoss: false,
+            position: "bottom-center",
+        })
+    }
+
+    Object.keys(achievements).forEach(e => {
+        if(!unlockedAchievements.unlocked.includes(e)){
+            achievements[e].unlock(achievementToast, playerData, unlockedAchievements,setUnlockedAchievements, purchases, purchasedUpgrades);
+        }
+    })
+
     const notEnoughMoneyToast = () => {
-        if (!toast.isActive("noMoney")) toast.error("Congratulations! You're broke and can't afford this!", {
+        toast.error("You're broke and can't afford this!", {
             toastId: "noMoney",
             position: "bottom-center",
-            autoClose: 5000,
+            icon: "😢",
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "dark",
+            pauseOnFocusLoss: false
         });
     }
 
@@ -77,7 +100,7 @@ const PlayerContext = ({ children }) => {
             click = 10;
         };
 
-        setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + click + upgrades, manualClicksLT: playerData.manualClicksLT + 1 })
+        setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + click + upgrades, manualClicksLT: playerData.manualClicksLT + 1, lifetimeClickWallet: playerData.lifetimeClickWallet + click + upgrades })
         addToWallet(click + upgrades);
     };
 
@@ -126,7 +149,7 @@ const PlayerContext = ({ children }) => {
     }
 
     return (
-        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems, purchasedUpgrades, setPurchasedUpgrades }}>
+        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems, purchasedUpgrades, setPurchasedUpgrades, achievements, unlockedAchievements }}>
             {children}
             <ToastContainer
                 limit={4}

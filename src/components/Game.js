@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import Bg from "./Bg";
 import ShovelContainer from "./ShovelContainer";
+import Achievements from "./Achievements";
 import PlayerData from "./PlayerData";
 import Shop from "./Shop";
 import { playerContext } from "../PlayerContext";
@@ -12,7 +13,7 @@ const Game = () => {
   const { wallet, setWallet, calculatePerSecond, setPlayerData, playerData } = useContext(playerContext);
   useInterval(() => {
     if (calculatePerSecond() > 0) {
-      setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + calculatePerSecond(), autoClicksLT: playerData.autoClicksLT + 1 })
+      setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + calculatePerSecond(), lifetimeAutoWallet: playerData.lifetimeAutoWallet + calculatePerSecond(), autoClicksLT: playerData.autoClicksLT + 1 })
       setWallet(wallet + calculatePerSecond());
     }
   }, 1000);
@@ -22,8 +23,11 @@ const Game = () => {
       <Bg />
 
       <Left>
-        <PlayerData />
         <ShovelContainer />
+        <BottomWrapper>
+        <PlayerData />
+        <Achievements />
+        </BottomWrapper>
       </Left>
 
       <Right>
@@ -45,6 +49,14 @@ const Wrapper = styled.div`
   @media (max-width: 768px) {
     height: fill-available;
   }
+`;
+
+const BottomWrapper = styled.div`
+display: flex;
+width: 100%;
+height: 50%;
+justify-content: space-around;
+align-items: center;
 `;
 
 const Left = styled.div`
