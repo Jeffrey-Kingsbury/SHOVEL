@@ -13,7 +13,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 const PlayerData = () => {
-    const { wallet, calculatePerSecond, hires, playerData, purchases, achievements, unlockedAchievements } = useContext(playerContext);
+    const { calculatePerSecond, hires, achievements, gameData, setGameData } = useContext(playerContext);
 
     const getOwned = (name) => {
         if (name === undefined) {
@@ -24,11 +24,11 @@ const PlayerData = () => {
         let price = 0;
         let produce = 0;
 
-        purchases.every((e, i) => {
+        gameData.purchases.every((e, i) => {
             if (Object.keys(e)[0] === name) {
-                owned = (purchases[i][name])
-                price = (purchases[i].data[0].price)
-                produce = (purchases[i].data[0].produce)
+                owned = (gameData.purchases[i][name])
+                price = (gameData.purchases[i].data[0].price)
+                produce = (gameData.purchases[i].data[0].produce)
                 return false;
             }
             return true;
@@ -39,6 +39,7 @@ const PlayerData = () => {
     };
     return (
         <Wrapper>
+
             <Title>Stats
                 <button onClick={() => { localStorage.clear(); window.location.reload(); }}>reset</button>
                 <button onClick={() => { localStorage.clear(); ls.set("!@$fd!#@%", 100000000000000, { encrypt: true }); window.location.reload(); }}>reset with money</button>
@@ -46,11 +47,11 @@ const PlayerData = () => {
 
             <WalletContainer>
                 <WalletImg draggable="false" src={WalletSrc} alt="Your wallet" />
-                {playerData.lifetimeWallet > 99999 ? playerData.lifetimeWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeWallet}$ / Lifetime
+                {gameData.lifetimeWallet > 99999 ? gameData.lifetimeWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.lifetimeWallet}$ / Lifetime
                 <br />
-                {playerData.lifetimeClickWallet > 99999 ? playerData.lifetimeClickWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeClickWallet}$ / Lifetime (manual)
+                {gameData.lifetimeClickWallet > 99999 ? gameData.lifetimeClickWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.lifetimeClickWallet}$ / Lifetime (manual)
                 <br />
-                {playerData.lifetimeAutoWallet > 99999 ? playerData.lifetimeAutoWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeAutoWallet}$ / Lifetime (auto)
+                {gameData.lifetimeAutoWallet > 99999 ? gameData.lifetimeAutoWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.lifetimeAutoWallet}$ / Lifetime (auto)
             </WalletContainer>
 
             <AutoContainer>
@@ -59,22 +60,22 @@ const PlayerData = () => {
                     {
                         Object.entries(hires[0]).map(e => {
                             const id = e[1];
-                            return <HiresWrapper key={e[0]}><Hires locked={id.lock(playerData, purchases)} src={!id.lock(playerData, purchases) ? id.img : LockIconSrc} />X{getOwned(e[0]).owned}</HiresWrapper>
+                            return <HiresWrapper key={e[0]}><Hires locked={id.lock(gameData)} src={!id.lock(gameData) ? id.img : LockIconSrc} />X{getOwned(e[0]).owned}</HiresWrapper>
 
                         })}
                 </HiresContainer>
             </AutoContainer>
 
             <WalletContainer>
-                <WalletImg draggable="false" src={AchievementSrc} alt="Your achievement count" /> {unlockedAchievements.unlocked.length} / {Object.keys(achievements).length}
+                <WalletImg draggable="false" src={AchievementSrc} alt="Your achievement count" /> {gameData.unlockedAchievements.unlocked.length} / {Object.keys(achievements).length}
             </WalletContainer>
 
             <AutoContainer>
-                <WalletImg draggable="false" src={ClickSrc} alt="Your manual click count" /> {playerData.manualClicksLT}
+                <WalletImg draggable="false" src={ClickSrc} alt="Your manual click count" /> {gameData.manualClicksLT}
             </AutoContainer>
 
             <WalletContainer>
-                <WalletImg draggable="false" src={AutoClickSrc} alt="Your auto click count" /> {playerData.autoClicksLT}
+                <WalletImg draggable="false" src={AutoClickSrc} alt="Your auto click count" /> {gameData.autoClicksLT}
 
             </WalletContainer>
 
@@ -83,13 +84,17 @@ const PlayerData = () => {
 };
 
 const Wrapper = styled.div`
-width: 45%;
-height: 100%;
+width: 90%;
 display: flex;
 flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: rgba(0,0,0,0.5);
+padding: 1rem 1rem 2rem 1rem;
 `;
 
 const Title = styled.h1`
+width: 90%;
 height: 4rem;
 padding: 5px 0;
 background-color: #edf2fa;
@@ -100,8 +105,14 @@ align-items: center;
 justify-content: center;
 `;
 
+const Img = styled.img`
+height: 3rem;
+margin: 0 1rem;
+user-select: none;
+`;
+
 const WalletContainer = styled.div`
-min-height: 10%;
+width: 90%;
 display: flex;
 align-items: center;
 user-select: none;
@@ -129,7 +140,7 @@ z-index:999999;
 `;
 
 const AutoContainer = styled.div`
-height: 10%;
+width: 90%;
 display: flex;
 align-items: center;
 user-select: none;

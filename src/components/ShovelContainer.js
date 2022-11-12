@@ -6,12 +6,12 @@ import AutomationSrc from "../img/shovel.png";
 
 
 const ShovelContainer = () => {
-    const { wallet, calculatePerSecond, hires, playerData, purchases, achievements, unlockedAchievements } = useContext(playerContext);
+    const { gameData, calculatePerSecond } = useContext(playerContext);
 
     return(
         <Wrapper>
             <Span>
-            <Title><Img draggable="false" src={WalletSrc} alt="Your current automation" />{wallet > 99999 ? wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : wallet}$</Title>
+            <Title><Img draggable="false" src={WalletSrc} alt="Your current automation" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
             <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{calculatePerSecond() > 99999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.</Title>
             </Span>
             <ShovelButton />

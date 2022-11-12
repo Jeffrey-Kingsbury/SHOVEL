@@ -5,14 +5,14 @@ import LockIconSrc from "../img/padlock.png";
 import AchievementSrc from "../img/trophy.png";
 
 const Achievements = () => {
-  const { achievements, unlockedAchievements } = useContext(playerContext);
+  const { achievements, gameData } = useContext(playerContext);
 
   return (
     <Wrapper>
       <Title>🏆 Achievements 🏆</Title>
       <Content>
         {Object.keys(achievements).map(e => {
-          if (unlockedAchievements.unlocked.includes(e)) {
+          if (gameData.unlockedAchievements.unlocked.includes(e)) {
 
             return <AchievementWrapper unlocked={true} key={e}>
               <Icon src={AchievementSrc} alt="Unlocked!" draggable={false} />
@@ -23,7 +23,7 @@ const Achievements = () => {
 
               <AchievementUnlockDate>
                 <p>Unlocked:</p>
-                {unlockedAchievements[e]}
+                {gameData.unlockedAchievements[e]}
               </AchievementUnlockDate>
             </AchievementWrapper>
 
@@ -51,7 +51,7 @@ const Achievements = () => {
 };
 
 const Wrapper = styled.div`
-width: 45%;
+width: 100%;
 height: 100%;
 display: flex;
 flex-direction: column;

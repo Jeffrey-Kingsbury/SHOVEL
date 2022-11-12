@@ -5,39 +5,22 @@ import { playerContext } from "../PlayerContext";
 import moneySrc from "../img/dollar.png";
 
 const ShovelButton = () => {
-    const { shovelManualClick, unlockedAchievements, playerData, setPlayerData } = useContext(playerContext);
+    const { shovelManualClick, gameData, setGameData } = useContext(playerContext);
     const [lastClick, setLastClick] = useState(0);
 
-    const addEl = (x, y)=>{
-        const el = document.createElement('img');
-        el.src = `${moneySrc}`;
-        el.style.width = "50px"
-        el.style.color = "green";
-        el.style.position = "absolute";
-        el.style.top = y + 'px';
-        el.style.left = x + 'px';
-        el.style.zIndex = 9999;
-        el.style.transform = `rotate(25deg)`;
-        el.style.pointerEvents = 'none';
-        el.animate({top:0, opacity:0}, {duration:2000, iterations:1});
-        document.body.appendChild(el);
-        setTimeout(()=>{
-            el.remove();
-        }, 1950);
-    };
 
     const clickSpeedCheck = () => {
-        if(!unlockedAchievements.unlocked.includes("fastest")){
+        if(!gameData.unlockedAchievements.unlocked.includes("fastest")){
             const time = new Date().getTime();
             setLastClick(new Date().getTime());
-            if(playerData.fastestClick > time - lastClick){
-                setPlayerData({...playerData, fastestClick:time - lastClick})
+            if(gameData.fastestClick > time - lastClick){
+                setGameData({...gameData, fastestClick:time - lastClick})
             }
         }
     }
 
     return (
-        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick(); clickSpeedCheck();}} id="shovelButton">
+        <Wrapper onClick={(e)=>{shovelManualClick(e.clientX, e.clientY); clickSpeedCheck();}} id="shovelButton">
             <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
         </Wrapper>
     );

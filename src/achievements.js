@@ -11,11 +11,13 @@ export const achievements = {
         name: "Your first dig",
         desc: "Manually SHOVEL for the first time.",
         hidden: false,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements) => {
-            if (playerData.manualClicksLT > 0) {
-                const allUnlocked = unlockedAchievements.unlocked;
-                allUnlocked.push("shovel1");
-                setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, shovel1: getDate() })
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT > 0) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel1"] = getDate();
+                allUnlocked.unlocked.push("shovel1");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                 achievementToast("Your first dig");
             }
         }
@@ -25,26 +27,48 @@ export const achievements = {
         name: "Gotta click fast!",
         desc: "SHOVEL multiple times a millisecond",
         hidden: false,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements) => {
-            if (playerData.fastestClick <= 15) {
-                const allUnlocked = unlockedAchievements.unlocked;
-                allUnlocked.push("fastest");
-                setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, fastest: getDate() })
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.fastestClick <= 15) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["fastest"] = getDate();
+                allUnlocked.unlocked.push("fastest");
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                 achievementToast("Gotta Click Fast!");
             }
         }
     },
 
+    toddler0: {
+        name: "Bundle of joy",
+        desc: "Purchase a Toddler",
+        hidden: true,
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
+                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 1) {
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler0"] = getDate();
+                    allUnlocked.unlocked.push("toddler0");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                    achievementToast("Bundle of joy");
+                    return;
+                }
+                return;
+            });
+        }
+    },
+    
+
     toddler1: {
         name: "Nursery",
         desc: "Purchase 10 Toddlers",
         hidden: true,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements, purchases, purchasedUpgrades) => {
-            purchases.forEach(e => {
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
                 if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 10) {
-                    const allUnlocked = unlockedAchievements.unlocked;
-                    allUnlocked.push("toddler1");
-                    setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, toddler1: getDate() })
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler1"] = getDate();
+                    allUnlocked.unlocked.push("toddler1");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                     achievementToast("Nursery");
                     return;
                 }
@@ -57,12 +81,13 @@ export const achievements = {
         name: "Daycare",
         desc: "Purchase 30 Toddlers",
         hidden: true,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements, purchases, purchasedUpgrades) => {
-            purchases.forEach(e => {
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
                 if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 30) {
-                    const allUnlocked = unlockedAchievements.unlocked;
-                    allUnlocked.push("toddler2");
-                    setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, toddler2: getDate() })
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler2"] = getDate();
+                    allUnlocked.unlocked.push("toddler2");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                     achievementToast("Daycare");
                     return;
                 }
@@ -75,12 +100,13 @@ export const achievements = {
         name: "Valentina Vassilyev",
         desc: "Purchase 69 Toddlers",
         hidden: true,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements, purchases, purchasedUpgrades) => {
-            purchases.forEach(e => {
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
                 if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 69) {
-                    const allUnlocked = unlockedAchievements.unlocked;
-                    allUnlocked.push("toddler3");
-                    setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, toddler3: getDate() })
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler3"] = getDate();
+                    allUnlocked.unlocked.push("toddler3");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                     achievementToast("Valentina Vassilyev");
                     return;
                 }
@@ -93,12 +119,13 @@ export const achievements = {
         name: "Feodor Vassilyev",
         desc: "Purchase 87 Toddlers",
         hidden: true,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements, purchases, purchasedUpgrades) => {
-            purchases.forEach(e => {
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
                 if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 87) {
-                    const allUnlocked = unlockedAchievements.unlocked;
-                    allUnlocked.push("toddler4");
-                    setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, toddler4: getDate() })
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler4"] = getDate();
+                    allUnlocked.unlocked.push("toddler4");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                     achievementToast("Feodor Vassilyev");
                     return;
                 }
@@ -111,12 +138,13 @@ export const achievements = {
         name: "Preschool",
         desc: "Purchase 100 Toddlers",
         hidden: true,
-        unlock: (achievementToast, playerData, unlockedAchievements, setUnlockedAchievements, purchases, purchasedUpgrades) => {
-            purchases.forEach(e => {
+        unlock: (achievementToast, gameData, setGameData) => {
+            gameData.purchases.forEach(e => {
                 if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 100) {
-                    const allUnlocked = unlockedAchievements.unlocked;
-                    allUnlocked.push("toddler5");
-                    setUnlockedAchievements({ ...unlockedAchievements, unlocked: allUnlocked, toddler5: getDate() })
+                    const allUnlocked = gameData.unlockedAchievements;
+                    allUnlocked["toddler5"] = getDate();
+                    allUnlocked.unlocked.push("toddler5");
+                    setGameData({ ...gameData, unlockedAchievements: allUnlocked })
                     achievementToast("Preschool");
                     return;
                 }

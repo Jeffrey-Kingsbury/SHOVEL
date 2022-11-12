@@ -7,7 +7,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 const Shop = () => {
-    const { purchases, playerData, hires, UpgradeItems, purchasedUpgrades, purchaseUpgrade} = useContext(playerContext);
+    const { gameData, hires, purchaseUpgrade} = useContext(playerContext);
 
     const getOwned = (name) => {
         if (name === undefined) {
@@ -18,11 +18,11 @@ const Shop = () => {
         let price = 0;
         let produce = 0;
 
-        purchases.every((e, i) => {
+        gameData.purchases.every((e, i) => {
             if (Object.keys(e)[0] === name) {
-                owned = (purchases[i][name])
-                price = (purchases[i].data[0].price)
-                produce = (purchases[i].data[0].produce)
+                owned = ( gameData.purchases[i][name])
+                price = ( gameData.purchases[i].data[0].price)
+                produce = ( gameData.purchases[i].data[0].produce)
                 return false;
             }
             return true;
@@ -39,7 +39,7 @@ const Shop = () => {
                 {
                     Object.entries(hires[0]).map(e => {
                         const id = e[1];
-                        return <ShopItem key={e[0]} locked={id.lock(playerData, purchases)} id={e[0]} name={id.name} price={getOwned(e[0]).price} produce={getOwned(e[0]).produce} owned={getOwned(e[0]).owned} tippy={id.tippy} img={id.img} />
+                        return <ShopItem key={e[0]} locked={id.lock(gameData)} id={e[0]} name={id.name} price={getOwned(e[0]).price} produce={getOwned(e[0]).produce} owned={getOwned(e[0]).owned} tippy={id.tippy} img={id.img} />
 
                     })}
             </People>
@@ -49,7 +49,7 @@ const Shop = () => {
 
                 {
                     Object.keys(upgradeItems).map(e => {
-                        if (upgradeItems[e].lock(playerData, purchases, purchasedUpgrades) === false) return <TippyWithStyle
+                        if (upgradeItems[e].lock(gameData) === false) return <TippyWithStyle
                             key={upgradeItems[e].name}
                             content={
                                 (

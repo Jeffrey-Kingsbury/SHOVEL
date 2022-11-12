@@ -17,12 +17,12 @@ export const upgradeItems = {
     tippy: "You know what they say about guys with big shovels, don't you?",
     src: SuperShovelSrc,
     price: 1000,
-    purchase: (purchases) => {
+    purchase: (gameData) => {
 
-      return purchases
+      return gameData.purchases
     },
-    lock: (playerData, purchases, purchasedUpgrades) => {
-      if (playerData.manualClicksLT >= 100 && !purchasedUpgrades.includes('superShovel1')) {
+    lock: (gameData) => {
+      if (gameData.manualClicksLT >= 100 && !gameData.purchasedUpgrades.includes('superShovel1')) {
         return false
       } else {
         return true
@@ -43,9 +43,9 @@ export const upgradeItems = {
     tippy: "Brought to you by the proud folks at cyclopentanoperhydrophenanthrene Inc.",
     src: SpecialMilkSrc,
     price: 5000,
-    purchase: (purchases) => {
+    purchase: (gameData) => {
 
-      const upgrade = purchases.map((e) => {
+      const upgrade = gameData.purchases.map((e) => {
         if (Object.keys(e)[0] === "toddler") {
           e[Object.keys(e)[1]][0].produce =
             e[Object.keys(e)[1]][0].produce * 2;
@@ -55,10 +55,10 @@ export const upgradeItems = {
       });
       return upgrade
     },
-    lock: (playerData, purchases, purchasedUpgrades) => {
-      return purchases.every(e => {
+    lock: (gameData) => {
+      return gameData.purchases.every(e => {
         if (Object.keys(e)[0] === 'toddler') {
-          if (e.toddler >= 30 && !purchasedUpgrades.includes('specialMilk')) {
+          if (e.toddler >= 30 && !gameData.purchasedUpgrades.includes('specialMilk')) {
             return false
           }
           return true
@@ -81,9 +81,9 @@ export const upgradeItems = {
     tippy: "Turns out giving teens body spray and a lighter was for the best! Except the whole town smells like Jr high now...",
     src: Pyro1Src,
     price: 7500,
-    purchase: (purchases) => {
+    purchase: (gameData) => {
 
-      const upgrade = purchases.map((e) => {
+      const upgrade = gameData.purchases.map((e) => {
         if (Object.keys(e)[0] === "localTeen") {
           e[Object.keys(e)[1]][0].produce =
             e[Object.keys(e)[1]][0].produce * 2;
@@ -93,10 +93,10 @@ export const upgradeItems = {
       });
       return upgrade
     },
-    lock: (playerData, purchases, purchasedUpgrades) => {
-      return purchases.every(e => {
+    lock: (gameData) => {
+      return gameData.purchases.every(e => {
         if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 30 && !purchasedUpgrades.includes('pyromania1')) {
+          if (e.localTeen >= 30 && !gameData.purchasedUpgrades.includes('pyromania1')) {
             return false
           }
           return true
@@ -113,9 +113,9 @@ export const upgradeItems = {
     tippy: "You can get flamethrowers at the thrift shop?!",
     src: Pyro2Src,
     price: 100000,
-    purchase: (purchases) => {
+    purchase: (gameData) => {
 
-      const upgrade = purchases.map((e) => {
+      const upgrade = gameData.purchases.map((e) => {
         if (Object.keys(e)[0] === "localTeen") {
           e[Object.keys(e)[1]][0].produce =
             e[Object.keys(e)[1]][0].produce * 3;
@@ -125,10 +125,10 @@ export const upgradeItems = {
       });
       return upgrade
     },
-    lock: (playerData, purchases, purchasedUpgrades) => {
-      return purchases.every(e => {
+    lock: (gameData) => {
+      return gameData.purchases.every(e => {
         if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 50 && !purchasedUpgrades.includes('pyromania2') && purchasedUpgrades.includes('pyromania1')) {
+          if (e.localTeen >= 50 && !gameData.purchasedUpgrades.includes('pyromania2') && gameData.purchasedUpgrades.includes('pyromania1')) {
             return false
           }
           return true

@@ -8,68 +8,51 @@ import { achievements } from "./achievements";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ls from 'localstorage-slim';
+import moneySrc from "./img/dollar.png";
+
 ls.config.encrypt = true;
+
+
+
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
 
-    const [wallet, setWallet] = useState(usePersistedState(0, "!@$fd!#@%")[0]);
-    const [purchases, setPurchases] = useState(usePersistedState(Object.entries(hires[0]).map(e => {
-        return {
-            [e[0]]: 0,
-            data: [e[1]]
-        };
-    }), "!@$dp!@#urr")[0]);
-
-    const [upgrades, setUpgrades] = useState(usePersistedState(upgradeItems, "#!@E!#c")[0]);
-
-    const [purchasedUpgrades, setPurchasedUpgrades] = useState(usePersistedState([], "d!@$df1!")[0]);
-    const [unlockedAchievements, setUnlockedAchievements] = useState(usePersistedState({unlocked:[]}, "!A%!R!@$%^")[0]);
-    const [playerData, setPlayerData] = useState(usePersistedState({
+    const [gameData, setGameData] = useState(usePersistedState({
+        wallet: 0,
+        purchases: Object.entries(hires[0]).map(e => {
+            return {
+                [e[0]]: 0,
+                data: [e[1]]
+            };
+        }),
+        upgrades: upgradeItems,
+        purchasedUpgrades: [],
+        unlockedAchievements: { unlocked: [] },
         manualClicksLT: 0,
         autoClicksLT: 0,
         lifetimeWallet: 0,
-        lifetimeClickWallet:0,
-        lifetimeAutoWallet:0,
+        lifetimeClickWallet: 0,
+        lifetimeAutoWallet: 0,
         fastestClick: new Date().getTime(),
-    }, "p@#$2D123")[0]);
+    }, "gameData")[0]);
+
 
     useEffect(() => {
-        ls.set("!@$fd!#@%", wallet);
-    }, [wallet]);
-
-    useEffect(() => {
-        ls.set("!@$dp!@#urr", JSON.stringify(purchases));
-    }, [purchases]);
-
-    useEffect(() => {
-        ls.set("#!@E!#c", JSON.stringify(upgrades));
-    }, [upgrades]);
-
-    useEffect(() => {
-        ls.set("p@#$2D123", JSON.stringify(playerData));
-    }, [playerData]);
-
-    useEffect(() => {
-        ls.set("!A%!R!@$%^", JSON.stringify(unlockedAchievements));
-    }, [unlockedAchievements]);
-
-    useEffect(() => {
-        ls.set("d!@$df1!", JSON.stringify(purchasedUpgrades));
-    }, [purchasedUpgrades]);
-
+        ls.set("gameData", JSON.stringify(gameData));
+    }, [gameData]);
 
     const achievementToast = (name) => {
         toast.success("Achievement unlocked! - " + name, {
-            icon:"🏆",
+            icon: "🏆",
             pauseOnFocusLoss: false,
             position: "bottom-center",
         })
     }
 
-    Object.keys(achievements).forEach((e)=> {
-        if(!unlockedAchievements.unlocked.includes(e)){
-            achievements[e].unlock(achievementToast, playerData, unlockedAchievements,setUnlockedAchievements, purchases, purchasedUpgrades);
+    Object.keys(achievements).forEach((e) => {
+        if (!gameData.unlockedAchievements.unlocked.includes(e)) {
+            achievements[e].unlock(achievementToast, gameData, setGameData);
         }
     })
 
@@ -90,24 +73,47 @@ const PlayerContext = ({ children }) => {
     }
 
     const addToWallet = (numToAdd) => {
-        setWallet(wallet + numToAdd);
+        setGameData({ ...gameData, wallet: gameData.wallet + numToAdd })
     };
 
-    const shovelManualClick = () => {
+    const shovelManualClick = (x, y) => {
         //TODO check for upgrades
         const upgrades = 0;
         let click = 1;
-        if (purchasedUpgrades.includes("superShovel1")) {
+        if (gameData.purchasedUpgrades.includes("superShovel1")) {
             click = 10;
         };
 
-        setPlayerData({ ...playerData, lifetimeWallet: playerData.lifetimeWallet + click + upgrades, manualClicksLT: playerData.manualClicksLT + 1, lifetimeClickWallet: playerData.lifetimeClickWallet + click + upgrades })
-        addToWallet(click + upgrades);
+        setGameData({
+            ...gameData,
+            wallet: gameData.wallet + (click + upgrades),
+            lifetimeWallet: gameData.lifetimeWallet + click + upgrades,
+            manualClicksLT: gameData.manualClicksLT + 1,
+            lifetimeClickWallet: gameData.lifetimeClickWallet + click + upgrades,
+        })
+
+        
+        const el = document.createElement('img');
+        el.src = `${moneySrc}`;
+        el.style.width = "50px"
+        el.style.color = "green";
+        el.style.position = "absolute";
+        el.style.top = y + 'px';
+        el.style.left = x + 'px';
+        el.style.zIndex = 9999;
+        el.style.transform = `rotate(25deg)`;
+        el.style.pointerEvents = 'none';
+        el.animate({ top: 0, opacity: 0 }, { duration: 2000, iterations: 1 });
+        document.body.appendChild(el);
+        setTimeout(() => {
+            el.remove();
+        }, 1950);
+
     };
 
     const calculatePerSecond = () => {
         let ps = 0;
-        purchases.forEach(e => {
+        gameData.purchases.forEach(e => {
             ps += ([Object.values(e)[0]] * Object.values(e)[1][0].produce);
 
         })
@@ -115,17 +121,17 @@ const PlayerContext = ({ children }) => {
     };
 
     const purchaseHelp = (name) => {
-        const hire = purchases.map((e, i) => {
+        const hire = gameData.purchases.map((e, i) => {
             //access data e[Object.keys(e)[1]][0]
             //acces owned e[Object.keys(e)[0]]
 
             if (Object.keys(e)[0] === name) {
-                if (wallet - e[Object.keys(e)[1]][0].price < 0) {
+                if (gameData.wallet - e[Object.keys(e)[1]][0].price < 0) {
                     notEnoughMoneyToast();
                     return e;
                 };
 
-                setWallet(wallet - e[Object.keys(e)[1]][0].price);
+                setGameData({ ...gameData, wallet: gameData.wallet - e[Object.keys(e)[1]][0].price });
                 e[Object.keys(e)[0]] += 1;
                 e[Object.keys(e)[1]][0].price = (Math.ceil(e[Object.keys(e)[1]][0].price * 1.08)).toFixed(0);
                 calculatePerSecond();
@@ -134,23 +140,28 @@ const PlayerContext = ({ children }) => {
             return e;
         })
 
-        setPurchases(hire);
+        setGameData({ ...gameData, purchases: hire });
     }
 
     const purchaseUpgrade = (id) => {
-        console.log(id)
-        if (wallet - upgradeItems[id].price < 0) {
+        if (gameData.wallet - upgradeItems[id].price < 0) {
             return notEnoughMoneyToast();
         }
+        const upgradesArray = gameData.purchasedUpgrades;
+        upgradesArray.push(id);
 
-        setWallet(wallet - upgradeItems[id].price);
-        setPurchasedUpgrades((purchasedUpgrades) => [...purchasedUpgrades, id])
-        upgradeItems[id].purchase(purchases);
+        setGameData({
+            ...gameData,
+            wallet: gameData.wallet - upgradeItems[id].price,
+            purchasedUpgrades: upgradesArray
+        });
+
+        upgradeItems[id].purchase(gameData.purchases);
 
     }
 
     return (
-        <playerContext.Provider value={{ purchaseUpgrade, wallet, setWallet, calculatePerSecond, purchases, purchaseHelp, upgrades, addToWallet, shovelManualClick, playerData, setPlayerData, hires, upgradeItems, purchasedUpgrades, setPurchasedUpgrades, achievements, unlockedAchievements }}>
+        <playerContext.Provider value={{ purchaseUpgrade, gameData, setGameData, calculatePerSecond, purchaseHelp, addToWallet, shovelManualClick, hires, upgradeItems, achievements }}>
             {children}
             <ToastContainer
                 limit={4}

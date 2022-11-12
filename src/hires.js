@@ -20,7 +20,7 @@ export const hires = [
             price: 10,
             produce: 1,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return false;
             }
         },  
@@ -31,8 +31,8 @@ export const hires = [
             price: 25,
             produce: 5,
 
-            lock: (playerData, purchases) => {
-                return purchases[0].toddler >= 5 ? false : true;
+            lock: (gameData) => {
+                return gameData.purchases[0].toddler >= 5 ? false : true;
             }
         },
         snowba: {
@@ -42,8 +42,8 @@ export const hires = [
             price: 150,
             produce: 10,
 
-            lock: (playerData) => {
-                return playerData.lifetimeWallet >= 150 ? false : true;
+            lock: (gameData) => {
+                return gameData.lifetimeWallet >= 150 ? false : true;
             }
         },
         experiencedWorker: {
@@ -53,8 +53,8 @@ export const hires = [
             price: 250,
             produce: 50,
 
-            lock: (playerData) => {
-                return playerData.autoClicksLT > 100 ? false : true;
+            lock: (gameData) => {
+                return gameData.autoClicksLT > 100 ? false : true;
             }
         },
         sidewalkPlow: {
@@ -64,7 +64,7 @@ export const hires = [
             price: 1500,
             produce: 100,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -75,7 +75,7 @@ export const hires = [
             price: 5000,
             produce: 400,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -86,7 +86,7 @@ export const hires = [
             price: 10000,
             produce: 800,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -97,7 +97,7 @@ export const hires = [
             price: 400000,
             produce: 1800,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -108,7 +108,7 @@ export const hires = [
             price: 1000000,
             produce: 5000,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -119,7 +119,7 @@ export const hires = [
             price: 6666666,
             produce: 66666,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         },
@@ -130,7 +130,7 @@ export const hires = [
             price: 10000000,
             produce: 100000,
 
-            lock: (playerData) => {
+            lock: (gameData) => {
                 return true;
             }
         }

@@ -7,7 +7,7 @@ const usePersistedState = (defaulValue, storageKey) => {
 
 
     useEffect(() => {
-        ls.set(storageKey, JSON.stringify(Value), {encrypt:true});
+        ls.set(storageKey, JSON.stringify(Value));
     }, [Value]);
 
     return [Value, SetValue];
