@@ -1,12 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import ShovelIcon from "../img/shovel.png";
 import { playerContext } from "../PlayerContext";
 import moneySrc from "../img/dollar.png";
 
 const ShovelButton = () => {
-    const { shovelManualClick } = useContext(playerContext);
-
+    const { shovelManualClick, unlockedAchievements, playerData, setPlayerData } = useContext(playerContext);
+    const [lastClick, setLastClick] = useState(0);
 
     const addEl = (x, y)=>{
         const el = document.createElement('img');
@@ -26,9 +26,19 @@ const ShovelButton = () => {
         }, 1950);
     };
 
+    const clickSpeedCheck = () => {
+        if(!unlockedAchievements.unlocked.includes("fastest")){
+            const time = new Date().getTime();
+            setLastClick(new Date().getTime());
+            if(playerData.fastestClick > time - lastClick){
+                setPlayerData({...playerData, fastestClick:time - lastClick})
+            }
+        }
+    }
+
     return (
-        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick();}} id="shovelButton">
-         <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
+        <Wrapper onClick={(e)=>{addEl(e.clientX, e.clientY); shovelManualClick(); clickSpeedCheck();}} id="shovelButton">
+            <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
         </Wrapper>
     );
 };

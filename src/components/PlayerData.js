@@ -13,7 +13,8 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 const PlayerData = () => {
-    const { wallet, calculatePerSecond, hires, playerData, purchases } = useContext(playerContext);
+    const { wallet, calculatePerSecond, hires, playerData, purchases, achievements, unlockedAchievements } = useContext(playerContext);
+
     const getOwned = (name) => {
         if (name === undefined) {
             return 0
@@ -38,26 +39,19 @@ const PlayerData = () => {
     };
     return (
         <Wrapper>
-            <Title>Stats             
-            <button onClick={() => { localStorage.clear(); window.location.reload(); }}>reset</button>
-            <button onClick={() => { localStorage.clear(); ls.set("!@$fd!#@%", 100000000000, { encrypt: true }); window.location.reload(); }}>reset with money</button>
-</Title>
-            
-            <WalletContainer>
-            <WalletImg draggable="false" src={WalletSrc} alt="Your wallet" /> 
-            <span>
-            {wallet > 99999 ? wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : wallet}$ / Current
-               <hr style={{margin:".5rem 0", border:"1px solid"}}/>
-               {playerData.lifetimeWallet > 99999 ? playerData.lifetimeWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeWallet}$ / Lifetime
-            </span>
+            <Title>Stats
+                <button onClick={() => { localStorage.clear(); window.location.reload(); }}>reset</button>
+                <button onClick={() => { localStorage.clear(); ls.set("!@$fd!#@%", 100000000000000, { encrypt: true }); window.location.reload(); }}>reset with money</button>
+            </Title>
 
-            <WalletImg draggable="false" src={WalletSrc} alt="Your wallet" /> 
-            <span>
-            {playerData.lifetimeClickWallet > 99999 ? playerData.lifetimeClickWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeClickWallet}$ / Lifetime (manual)
-               <hr style={{margin:".5rem 0", border:"1px solid"}}/>
-               {playerData.lifetimeAutoWallet > 99999 ? playerData.lifetimeAutoWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeAutoWallet}$ / Lifetime (auto)
-            </span>
-           </WalletContainer>
+            <WalletContainer>
+                <WalletImg draggable="false" src={WalletSrc} alt="Your wallet" />
+                {playerData.lifetimeWallet > 99999 ? playerData.lifetimeWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeWallet}$ / Lifetime
+                <br />
+                {playerData.lifetimeClickWallet > 99999 ? playerData.lifetimeClickWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeClickWallet}$ / Lifetime (manual)
+                <br />
+                {playerData.lifetimeAutoWallet > 99999 ? playerData.lifetimeAutoWallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : playerData.lifetimeAutoWallet}$ / Lifetime (auto)
+            </WalletContainer>
 
             <AutoContainer>
                 <WalletImg draggable="false" src={AutomationSrc} alt="Your current automation" /> {calculatePerSecond() > 99999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.
@@ -72,16 +66,16 @@ const PlayerData = () => {
             </AutoContainer>
 
             <WalletContainer>
-            <WalletImg draggable="false" src={AchievementSrc} alt="Your achievement count" /> 0 / 50
+                <WalletImg draggable="false" src={AchievementSrc} alt="Your achievement count" /> {unlockedAchievements.unlocked.length} / {Object.keys(achievements).length}
             </WalletContainer>
-            
+
             <AutoContainer>
-            <WalletImg draggable="false" src={ClickSrc} alt="Your manual click count" /> {playerData.manualClicksLT}
+                <WalletImg draggable="false" src={ClickSrc} alt="Your manual click count" /> {playerData.manualClicksLT}
             </AutoContainer>
-            
+
             <WalletContainer>
-            <WalletImg draggable="false" src={AutoClickSrc} alt="Your auto click count" /> {playerData.autoClicksLT}
-            
+                <WalletImg draggable="false" src={AutoClickSrc} alt="Your auto click count" /> {playerData.autoClicksLT}
+
             </WalletContainer>
 
         </Wrapper>
@@ -120,7 +114,7 @@ padding: 5px 0;
 `;
 
 const HiresContainer = styled.div`
-width: 400px;
+width: 600px;
 height: ${props => `${props.heightCalc}px`};
 bottom: ${props => `-${props.heightCalc}px`};
 padding: 0 1rem;
@@ -128,7 +122,7 @@ position: absolute;
 background-color: rgba(0,0,0,0.7);
 color: white;
 display: grid;
-grid-template-columns: repeat(auto-fill, 100px);
+grid-template-columns: repeat(auto-fill, 150px);
 align-items: center;
 visibility: hidden;
 z-index:999999;
@@ -163,7 +157,6 @@ display: flex;
 justify-content: center;
 align-items: center;
 width: auto;
-
 `;
 
 const Hires = styled.img`

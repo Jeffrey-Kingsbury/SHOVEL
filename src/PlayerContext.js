@@ -30,7 +30,8 @@ const PlayerContext = ({ children }) => {
         autoClicksLT: 0,
         lifetimeWallet: 0,
         lifetimeClickWallet:0,
-        lifetimeAutoWallet:0
+        lifetimeAutoWallet:0,
+        fastestClick: new Date().getTime(),
     }, "p@#$2D123")[0]);
 
     useEffect(() => {
@@ -66,7 +67,7 @@ const PlayerContext = ({ children }) => {
         })
     }
 
-    Object.keys(achievements).forEach(e => {
+    Object.keys(achievements).forEach((e)=> {
         if(!unlockedAchievements.unlocked.includes(e)){
             achievements[e].unlock(achievementToast, playerData, unlockedAchievements,setUnlockedAchievements, purchases, purchasedUpgrades);
         }
@@ -126,7 +127,7 @@ const PlayerContext = ({ children }) => {
 
                 setWallet(wallet - e[Object.keys(e)[1]][0].price);
                 e[Object.keys(e)[0]] += 1;
-                e[Object.keys(e)[1]][0].price = (Math.round(e[Object.keys(e)[1]][0].price * 1.25)).toFixed(0);
+                e[Object.keys(e)[1]][0].price = (Math.ceil(e[Object.keys(e)[1]][0].price * 1.08)).toFixed(0);
                 calculatePerSecond();
                 return e;
             }
