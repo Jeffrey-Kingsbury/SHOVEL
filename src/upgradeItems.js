@@ -44,7 +44,7 @@ export const upgradeItems = {
     src: SpecialMilkSrc,
     price: 5000,
     purchase: (gameData) => {
-
+      console.log(gameData.purchases)
       const upgrade = gameData.purchases.map((e) => {
         if (Object.keys(e)[0] === "toddler") {
           e[Object.keys(e)[1]][0].produce =
@@ -59,9 +59,9 @@ export const upgradeItems = {
       return gameData.purchases.every(e => {
         if (Object.keys(e)[0] === 'toddler') {
           if (e.toddler >= 30 && !gameData.purchasedUpgrades.includes('specialMilk')) {
-            return false
+            return false;
           }
-          return true
+          return true;
         }
         return true;
       })
