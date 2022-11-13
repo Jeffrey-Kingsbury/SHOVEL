@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 height: 70%;
 aspect-ratio: 1/1;
 border-radius: 50%;
-background-color: #c1d3fe;
+background-color: white;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -51,8 +51,8 @@ user-select: none;
 }
 
 @media (max-width: 768px) {
-    width: 60%;
-    height: auto;
+    max-width: 90%;
+    height: 50%;
   }
 `;
 

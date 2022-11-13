@@ -44,11 +44,10 @@ const BG = styled.div`
 width: 100vw;
 height: 100vh;
 position: absolute;
-z-index: 0;
+z-index: -1;
 font-size: 100px;
 color: lightgray;
 overflow: hidden;
-
 `;
 
 export default Bg;

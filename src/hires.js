@@ -65,7 +65,7 @@ export const hires = [
             produce: 100,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         cityPlow: {
@@ -76,7 +76,7 @@ export const hires = [
             produce: 400,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         magicShovel: {
@@ -87,7 +87,7 @@ export const hires = [
             produce: 800,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         ufo: {
@@ -98,7 +98,7 @@ export const hires = [
             produce: 1800,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         portableBlackHole: {
@@ -109,7 +109,7 @@ export const hires = [
             produce: 5000,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         gatewayToHell: {
@@ -120,7 +120,7 @@ export const hires = [
             produce: 66666,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         },
         otherworldlyCreature: {
@@ -131,7 +131,7 @@ export const hires = [
             produce: 100000,
 
             lock: (gameData) => {
-                return true;
+                return false;
             }
         }
     }

@@ -38,13 +38,16 @@ const TippyWithStyle = styled(Tippy)`
     font-size: larger;
     opacity: 90%;
     z-index: 9999;
+    @media (max-width: 768px) {
+        display: none;
+  }
 `;
 
 const Wrapper = styled.div`
 padding: .25rem 0;
 width: 90%;
 min-height: 8rem;
-background-color: ${props => props.locked ? "gray" : "beige"};
+background-color: ${props => props.locked ? "gray" : "rgba(0,0,0,0.8)"};
 margin: 30px 0 0 0;
 border-radius: 15px;
 display: flex;
@@ -52,6 +55,15 @@ align-items: center;
 justify-content: flex-start;
 user-select: none;
 box-shadow: 0px 5px 15px rgba(0,0,0,0.8);
+color: white;
+
+@media (max-width: 768px) {
+    width: 99%;
+    font-size: small;
+    padding: 0;
+    height: fit-content;
+    contain: content;
+  }
 
 cursor: pointer;
 transition: all ease-in-out .08s;
@@ -78,11 +90,21 @@ display: ${props => props.locked ? "none" : "flex"};
 
 const Icon = styled.img`
 width: 80%;
+@media (max-width: 768px) {
+   width: 30%;
+   z-index: -1;
+   opacity: 70%;
+   position: absolute;
+  }
 `;
 
 const LockIcon = styled.img`
     height: 80%;
     margin: auto;
+    @media (max-width: 768px) {
+        height: 5rem;
+        margin: 5px auto;
+  }
 `;
 
 const DataContainer = styled.div`

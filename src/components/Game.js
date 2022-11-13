@@ -1,16 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Bg from "./Bg";
 import ShovelContainer from "./ShovelContainer";
 import Achievements from "./Achievements";
 import PlayerData from "./PlayerData";
 import Shop from "./Shop";
+import HeaderMobile from "./HeaderMobile";
 import { playerContext } from "../PlayerContext";
 import useInterval from "../use-interval.hook";
 
 
 const Game = () => {
   const { calculatePerSecond, gameData, setGameData } = useContext(playerContext);
+  const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, stats, achievements
+
   useInterval(() => {
     if (calculatePerSecond() > 0) {
       setGameData({ ...gameData, wallet: gameData.wallet + calculatePerSecond(), lifetimeWallet: gameData.lifetimeWallet + calculatePerSecond(), lifetimeAutoWallet: gameData.lifetimeAutoWallet + calculatePerSecond(), autoClicksLT: gameData.autoClicksLT + 1 })
@@ -21,7 +24,7 @@ const Game = () => {
     <Wrapper>
       <Bg />
 
-      <Left>
+      {/* <Left>
 
         <StatsWrapper>
           <PlayerData />
@@ -36,11 +39,35 @@ const Game = () => {
 
       <Right>
         <Shop />
-      </Right>
+      </Right> */}
+
+      <MobileView>
+        <HeaderMobile activeScreen={activeScreen} setActiveScreen={setActiveScreen}/>
+        {activeScreen === "shovel" && 
+          <ShovelContainer />
+        }
+
+        {activeScreen === "shop" &&
+        <Shop />
+        }
+      </MobileView>
 
     </Wrapper>
   );
 };
+
+const MobileView = styled.div`
+display: none;
+height: 100vh;
+width: 100vw;
+justify-content: flex-start;
+flex-direction: column;
+align-items: center;
+
+@media (max-width: 768px) {
+    display: flex;
+  }
+`;
 
 const StatsWrapper = styled.div`
 height: 100%;

@@ -11,7 +11,7 @@ const ShovelContainer = () => {
     return(
         <Wrapper>
             <Span>
-            <Title><Img draggable="false" src={WalletSrc} alt="Your current automation" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
+            <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
             <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{calculatePerSecond() > 99999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.</Title>
             </Span>
             <ShovelButton />
@@ -20,14 +20,15 @@ const ShovelContainer = () => {
 };
 
 const Wrapper = styled.div`
-width: 50%;
+width: 100%;
 height: 40%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-around;
 @media (max-width: 768px) {
-   height: 50vh;
+   width: 100%;
+   height: 100%;
   }
 `;
 
@@ -36,6 +37,9 @@ width: 100%;
 display: flex;
 align-items: center;
 justify-content: space-around;
+@media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h1`
@@ -48,6 +52,9 @@ display: flex;
 align-items: center;
 justify-content: center;
 font-size: medium;
+@media (max-width: 768px) {
+   width: 90%;
+  }
 `;
 
 const Img = styled.img`

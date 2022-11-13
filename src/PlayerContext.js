@@ -121,6 +121,7 @@ const PlayerContext = ({ children }) => {
     };
 
     const purchaseHelp = (name) => {
+        let newWallet = gameData.wallet;
         const hire = gameData.purchases.map((e, i) => {
             //access data e[Object.keys(e)[1]][0]
             //acces owned e[Object.keys(e)[0]]
@@ -130,8 +131,8 @@ const PlayerContext = ({ children }) => {
                     notEnoughMoneyToast();
                     return e;
                 };
+                newWallet = newWallet - e[Object.keys(e)[1]][0].price
 
-                setGameData({ ...gameData, wallet: gameData.wallet - e[Object.keys(e)[1]][0].price });
                 e[Object.keys(e)[0]] += 1;
                 e[Object.keys(e)[1]][0].price = (Math.ceil(e[Object.keys(e)[1]][0].price * 1.08)).toFixed(0);
                 calculatePerSecond();
@@ -140,7 +141,7 @@ const PlayerContext = ({ children }) => {
             return e;
         })
 
-        setGameData({ ...gameData, purchases: hire });
+        setGameData({ ...gameData, purchases: hire, wallet: newWallet });
     }
 
     const purchaseUpgrade = (id) => {

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ShopItem from "./ShopItem";
 import { playerContext } from "../PlayerContext";
 import { upgradeItems } from "../upgradeItems";
+import WalletSrc from "../img/wallet.png";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -34,6 +35,7 @@ const Shop = () => {
 
     return (
         <Wrapper>
+                        <TitleMobile><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</TitleMobile>
             <Title>"Hire" help</Title>
             <People>
                 {
@@ -66,7 +68,7 @@ const Shop = () => {
                                     </div>
                                 )
                             }
-                            placement="left"
+                            placement="top"
                         >
                             <UpgradeItem onClick={()=>{purchaseUpgrade(upgradeItems[e].id)}} key={upgradeItems[e].id} draggable="false" src={upgradeItems[e].src} alt={upgradeItems[e].name} />
                         </TippyWithStyle>
@@ -88,27 +90,58 @@ const TippyWithStyle = styled(Tippy)`
     font-size: larger;
     opacity: 90%;
     z-index: 9999;
+
 `;
 
 const Wrapper = styled.div`
 width: 90%;
-height: 100%;
+height: 90%;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: flex-start;
+margin: auto;
+@media (max-width: 768px) {
+   width: 100%;
+   height: 90%;
+   justify-content: space-around;
+  }
 `;
 
 const Title = styled.h1`
 width: 100%;
-height: auto;
-padding: 5px 0;
+height: 5%;
 background-color: #edf2fa;
 border: 5px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
+@media (max-width: 768px) {
+display: none;
+  }
+`;
+
+const TitleMobile = styled.h1`
+width: 100%;
+height: 5%;
+background-color: #edf2fa;
+border: 1px solid;
+border-radius: 10px;
+display: none;
+align-items: center;
+justify-content: center;
+
+font-size: small;
+@media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const Img = styled.img`
+height: 90%;
+margin: 0 1rem;
+user-select: none;
 `;
 
 const People = styled.div`
@@ -119,10 +152,15 @@ flex-direction: column;
 align-items: center;
 justify-content: flex-start;
 background-color: #edf2fa;
-border: 5px solid;
+border: 1px solid;
 border-radius: 10px;
 overflow-x: auto;
 padding: 0 0 1rem 0;
+@media (max-width: 768px) {
+   width: 98%;
+   height: 69%;
+  }
+
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
@@ -161,11 +199,16 @@ justify-content: center;
 column-gap: 5px;
 row-gap: 0;
 background-color: #edf2fa;
-border: 5px solid;
+border: 1px solid;
 border-radius: 10px;
 overflow-y: auto;
 overflow-x: hidden;
 padding: 15px 0;
+
+@media (max-width: 768px) {
+   width: 98%;
+   height: 20%;
+  }
 
 /* width */
 ::-webkit-scrollbar {
@@ -194,7 +237,7 @@ const UpgradeItem = styled.img`
     transition: all .1s ease-in-out;
     border: 4px solid black;
     border-radius: 5px;
-    background-color: beige;
+    background-color: rgba(0,0,0,0.8);
     padding: 5px;
     box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .5);
     cursor: pointer;
