@@ -58,8 +58,9 @@ box-shadow: 0px 5px 15px rgba(0,0,0,0.8);
 color: white;
 
 @media (max-width: 768px) {
-    width: 99%;
-    font-size: small;
+    width: 95%;
+    min-height: 6rem;
+    font-size: x-small;
     padding: 0;
     height: fit-content;
     contain: content;
@@ -86,6 +87,10 @@ display: flex;
 align-items: center;
 justify-content: center;
 display: ${props => props.locked ? "none" : "flex"};
+@media (max-width: 768px) {
+    margin-right: 1rem;
+  }
+
 `;
 
 const Icon = styled.img`

@@ -7,12 +7,28 @@ const getDate = () => {
 
 export const achievements = {
 
-    shovel1: {
+    shovel0: {
         name: "Your first dig",
-        desc: "Manually SHOVEL for the first time.",
+        desc: "Manually SHOVEL for the first time",
         hidden: false,
         unlock: (achievementToast, gameData, setGameData) => {
             if (gameData.manualClicksLT > 0) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel0"] = getDate();
+                allUnlocked.unlocked.push("shovel0");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("Your first dig");
+            }
+        }
+    },
+
+    shovel1: {
+        name: "Nice",
+        desc: "Manually SHOVEL 69 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 69) {
                 const allUnlocked = gameData.unlockedAchievements;
                 allUnlocked["shovel1"] = getDate();
                 allUnlocked.unlocked.push("shovel1");
@@ -23,9 +39,89 @@ export const achievements = {
         }
     },
 
+    shovel2: {
+        name: "SHOVEL enthusiast",
+        desc: "Manually dig 100 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 100) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel2"] = getDate();
+                allUnlocked.unlocked.push("shovel2");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("SHOVEL enthusiast");
+            }
+        }
+    },
+
+    shovel3: {
+        name: "SHOVEL pro",
+        desc: "Manually dig 1000 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 1000) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel3"] = getDate();
+                allUnlocked.unlocked.push("shovel3");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("SHOVEL pro");
+            }
+        }
+    },
+
+    shovel4: {
+        name: "SHOVEL bot",
+        desc: "Manually dig 10,000 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 10000) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel4"] = getDate();
+                allUnlocked.unlocked.push("shovel4");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("SHOVEL bot");
+            }
+        }
+    },
+
+    shovel5: {
+        name: "Carpal Tunnel",
+        desc: "Manually dig 100,000 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 100000) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel5"] = getDate();
+                allUnlocked.unlocked.push("shovel5");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("Carpal Tunnel");
+            }
+        }
+    },
+
+    shovel6: {
+        name: "SHOVEL Master",
+        desc: "Manually dig 1,000,000 times",
+        hidden: false,
+        unlock: (achievementToast, gameData, setGameData) => {
+            if (gameData.manualClicksLT >= 1000000) {
+                const allUnlocked = gameData.unlockedAchievements;
+                allUnlocked["shovel6"] = getDate();
+                allUnlocked.unlocked.push("shovel6");
+
+                setGameData({ ...gameData, unlockedAchievements: allUnlocked })
+                achievementToast("SHOVEL Master");
+            }
+        }
+    },
+
     fastest: {
         name: "Gotta click fast!",
-        desc: "SHOVEL multiple times a millisecond",
+        desc: "SHOVEL extremely fast",
         hidden: false,
         unlock: (achievementToast, gameData, setGameData) => {
             if (gameData.fastestClick <= 15) {

@@ -21,16 +21,16 @@ const ShovelButton = () => {
 
     return (
         <Wrapper onClick={(e)=>{shovelManualClick(e.clientX, e.clientY); clickSpeedCheck();}} id="shovelButton">
-            <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/>
+            {/* <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/> */}
+            <h1>DIG</h1>
         </Wrapper>
     );
 };
 
 const Wrapper = styled.div`
-height: 70%;
 aspect-ratio: 1/1;
 border-radius: 50%;
-background-color: white;
+background-color: #9DC4C4;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -52,12 +52,12 @@ user-select: none;
 
 @media (max-width: 768px) {
     max-width: 90%;
-    height: 50%;
+    height: 20rem;
   }
 `;
 
 const Img = styled.img`
-height: 60%;
+height: 15rem;
 `;
 
 export default ShovelButton;

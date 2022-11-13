@@ -12,7 +12,7 @@ import useInterval from "../use-interval.hook";
 
 const Game = () => {
   const { calculatePerSecond, gameData, setGameData } = useContext(playerContext);
-  const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, stats, achievements
+  const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, upgrade, stats, achievements, settings
 
   useInterval(() => {
     if (calculatePerSecond() > 0) {
@@ -24,7 +24,9 @@ const Game = () => {
     <Wrapper>
       <Bg />
 
-      {/* <Left>
+      {
+      <DesktopView>
+      <Left>
 
         <StatsWrapper>
           <PlayerData />
@@ -39,7 +41,8 @@ const Game = () => {
 
       <Right>
         <Shop />
-      </Right> */}
+      </Right>
+      </DesktopView> }
 
       <MobileView>
         <HeaderMobile activeScreen={activeScreen} setActiveScreen={setActiveScreen}/>
@@ -66,6 +69,13 @@ align-items: center;
 
 @media (max-width: 768px) {
     display: flex;
+  }
+`;
+const DesktopView = styled.div`
+display: block;
+
+@media (max-width: 768px) {
+    display: none;
   }
 `;
 

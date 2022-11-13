@@ -45,7 +45,7 @@ const Shop = () => {
 
                     })}
             </People>
-
+{/* 
             <Title>Upgrades</Title>
             <Upgrades>
 
@@ -76,7 +76,7 @@ const Shop = () => {
                     })
                 }
 
-            </Upgrades>
+            </Upgrades> */}
         </Wrapper>
     );
 };
@@ -103,15 +103,15 @@ justify-content: flex-start;
 margin: auto;
 @media (max-width: 768px) {
    width: 100%;
-   height: 90%;
-   justify-content: space-around;
+   height: 93%;
+   justify-content: center;
   }
 `;
 
 const Title = styled.h1`
 width: 100%;
 height: 5%;
-background-color: #edf2fa;
+background-color: #9DC4C4;
 border: 5px solid;
 border-radius: 10px;
 display: flex;
@@ -123,10 +123,10 @@ display: none;
 `;
 
 const TitleMobile = styled.h1`
-width: 100%;
+width: 90%;
 height: 5%;
-background-color: #edf2fa;
-border: 1px solid;
+background-color: #9DC4C4;
+border: 2px solid;
 border-radius: 10px;
 display: none;
 align-items: center;
@@ -151,14 +151,17 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: flex-start;
-background-color: #edf2fa;
-border: 1px solid;
+background-color: #9DC4C4;
+border: 2px solid;
 border-radius: 10px;
 overflow-x: auto;
 padding: 0 0 1rem 0;
 @media (max-width: 768px) {
-   width: 98%;
-   height: 69%;
+   width:100%;
+   height: 90%;
+   border-radius: 0;
+   border: 0;
+   border-top: 2px solid;
   }
 
 /* width */
