@@ -1,23 +1,50 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import { playerContext } from "../PlayerContext";
+import { upgradeItems } from "../upgradeItems";
 
 const UpgradesShop = () => {
     const [selectedUpgrade, setSelectedUpgrade] = useState();
+    const { gameData, purchaseUpgrade} = useContext(playerContext);
+
+    const submitPurchase = () => {
+        if(purchaseUpgrade(selectedUpgrade)){
+            setSelectedUpgrade(!selectedUpgrade)
+        };
+    };
 
     return(<Wrapper>
 
-        
         <Title>Upgrades Shop</Title>
         <ItemsContainer>
-
+        {
+                    Object.keys(upgradeItems).map(e => {
+                        if (upgradeItems[e].lock(gameData) === false) {
+                            return <UpgradeItem onClick={()=>{setSelectedUpgrade(upgradeItems[e].id)}} key={upgradeItems[e].id} draggable="false" src={upgradeItems[e].src} alt={upgradeItems[e].name} />
+                        }else{ 
+                            return false
+                        }
+                    })
+                }
         </ItemsContainer>
 
         <DescriptionContainer>
             <DescriptionWrapper>
                 {!selectedUpgrade && 
                 "Select an upgrade"}
+
+                {selectedUpgrade &&
+                <>
+                <Name>{upgradeItems[selectedUpgrade].name}</Name>
+                <hr style={{width:"90%"}}/>
+                <Price>{upgradeItems[selectedUpgrade].price}$</Price>
+                <Desc>{upgradeItems[selectedUpgrade].desc}</Desc>
+                </>
+
+                
+                }
             </DescriptionWrapper>
-                    <PurchaseButton disabled={!selectedUpgrade}>Purchase</PurchaseButton>
+                    <PurchaseButton onClick={()=>{submitPurchase()}} disabled={!selectedUpgrade}>Purchase</PurchaseButton>
         </DescriptionContainer>
     </Wrapper>);
 };
@@ -82,6 +109,7 @@ const DescriptionWrapper = styled.div`
 height: 70%;
 width: 90%;
 display: flex;
+flex-direction: column;
 align-items: center;
 justify-content: center;
 text-align: center;
@@ -95,5 +123,44 @@ border-radius: 15px;
 background-color: ${props => !props.disabled ? "lightgreen" : "lightgray"};
 font-size: larger;
 font-family: 'press start 2p';
+`;
+
+const UpgradeItem = styled.img`
+    width: 50px;
+    transition: all .1s ease-in-out;
+    border: 4px solid black;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.8);
+    padding: 5px;
+    box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .5);
+    cursor: pointer;
+    user-select: none;
+    margin: 5px 0;
+
+    &:hover{
+        transform: scale(1.05);
+        box-shadow: 0 5px 8px 5px rgba(0, 0, 0, .2);
+    }
+
+    &:active{
+        transform: scale(.95);
+        box-shadow: 0 0 1px 5px rgba(0, 0, 0, .2);
+    }
+`;
+
+const Name = styled.p`
+font-size: larger;
+line-height: 25px;
+margin: 5px;
+`;
+
+const Price = styled.p`
+font-size: larger;
+margin: 5px;
+`;
+
+const Desc = styled.p`
+font-size: small;
+line-height: 25px;
 `;
 export default UpgradesShop;

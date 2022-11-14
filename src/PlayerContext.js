@@ -48,7 +48,8 @@ const PlayerContext = ({ children }) => {
         toast.success("Achievement unlocked! - " + name, {
             icon: "🏆",
             pauseOnFocusLoss: false,
-            position: "bottom-center",
+            position: isMobile ? "top-center" : "bottom-center",
+            
         })
     }
 
@@ -61,7 +62,7 @@ const PlayerContext = ({ children }) => {
     const notEnoughMoneyToast = () => {
         toast.error("You're broke and can't afford this!", {
             toastId: "noMoney",
-            position: "bottom-center",
+            position: isMobile ? "top-center" : "bottom-center",
             icon: "😢",
             autoClose: 2000,
             hideProgressBar: false,
@@ -148,7 +149,8 @@ const PlayerContext = ({ children }) => {
 
     const purchaseUpgrade = (id) => {
         if (gameData.wallet - upgradeItems[id].price < 0) {
-            return notEnoughMoneyToast();
+            notEnoughMoneyToast();
+            return false;
         }
         const upgradesArray = gameData.purchasedUpgrades;
         upgradesArray.push(id);
@@ -161,6 +163,7 @@ const PlayerContext = ({ children }) => {
 
         upgradeItems[id].purchase(gameData);
 
+        return true;
     }
 
     return (
