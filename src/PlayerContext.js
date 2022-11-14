@@ -37,7 +37,6 @@ const PlayerContext = ({ children }) => {
         fastestClick: new Date().getTime(),
     }, "gameData")[0]);
 
-console.log(gameData.purchases)
     useEffect(() => {
         ls.set("gameData", JSON.stringify(gameData));
     }, [gameData]);
