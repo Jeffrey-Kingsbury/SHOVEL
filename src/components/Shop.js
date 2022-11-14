@@ -36,7 +36,7 @@ const Shop = () => {
     return (
         <Wrapper>
                         <TitleMobile><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</TitleMobile>
-            <Title>"Hire" help</Title>
+            <Title>The shop</Title>
             <People>
                 {
                     Object.entries(hires[0]).map(e => {
@@ -103,35 +103,33 @@ justify-content: flex-start;
 margin: auto;
 @media (max-width: 768px) {
    width: 100%;
-   height: 93%;
    justify-content: center;
   }
 `;
 
 const Title = styled.h1`
-width: 100%;
+width: 90%;
 height: 5%;
-background-color: #9DC4C4;
-border: 5px solid;
+background-color: #e1e4e8;
+border: 2px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
-@media (max-width: 768px) {
-display: none;
-  }
+box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+font-size: x-large;
 `;
 
 const TitleMobile = styled.h1`
 width: 90%;
 height: 5%;
-background-color: #9DC4C4;
+background-color: #e1e4e8;
 border: 2px solid;
 border-radius: 10px;
 display: none;
 align-items: center;
 justify-content: center;
-
+box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
 font-size: small;
 @media (max-width: 768px) {
     display: flex;
@@ -151,17 +149,16 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: flex-start;
-background-color: #9DC4C4;
 border: 2px solid;
 border-radius: 10px;
 overflow-x: auto;
 padding: 0 0 1rem 0;
 @media (max-width: 768px) {
    width:100%;
-   height: 90%;
+   height: 100%;
    border-radius: 0;
    border: 0;
-   border-top: 2px solid;
+   background-color: transparent;
   }
 
 /* width */

@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ls from 'localstorage-slim';
 import moneySrc from "./img/dollar.png";
+import { useWindowSize } from '@react-hook/window-size';
 
 ls.config.encrypt = true;
 
@@ -17,6 +18,8 @@ ls.config.encrypt = true;
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
+    const [width, height] = useWindowSize();
+    const isMobile = width < 768;
 
     const [gameData, setGameData] = useState(usePersistedState({
         wallet: 0,
@@ -161,7 +164,7 @@ const PlayerContext = ({ children }) => {
     }
 
     return (
-        <playerContext.Provider value={{ purchaseUpgrade, gameData, setGameData, calculatePerSecond, purchaseHelp, addToWallet, shovelManualClick, hires, upgradeItems, achievements }}>
+        <playerContext.Provider value={{ purchaseUpgrade, gameData, setGameData, calculatePerSecond, purchaseHelp, addToWallet, shovelManualClick, hires, upgradeItems, achievements, width, height, isMobile }}>
             {children}
             <ToastContainer
                 limit={4}

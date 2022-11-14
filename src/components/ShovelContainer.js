@@ -28,7 +28,7 @@ align-items: center;
 justify-content: space-around;
 @media (max-width: 768px) {
    width: 100%;
-   height: 95%;
+   height: 90%;
   }
 `;
 
@@ -45,13 +45,14 @@ justify-content: space-around;
 const Title = styled.h1`
 width: 45%;
 padding: 5px 0;
-background-color: #9DC4C4;
-border: 5px solid;
+background-color: #e1e4e8;
+border: 2px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
 font-size: medium;
+box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
 @media (max-width: 768px) {
    width: 90%;
   }

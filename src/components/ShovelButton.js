@@ -30,12 +30,12 @@ const ShovelButton = () => {
 const Wrapper = styled.div`
 aspect-ratio: 1/1;
 border-radius: 50%;
-background-color: #9DC4C4;
+background-color: #e1e4e8;
 display: flex;
 align-items: center;
 justify-content: center;
 box-shadow: 0px 5px 15px rgba(0,0,0,0.8);
-
+border: 2px solid;
 cursor: pointer;
 transition: all ease-in-out .08s;
 user-select: none;

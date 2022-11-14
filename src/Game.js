@@ -2,17 +2,18 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import Bg from "./components/Bg";
 import ShovelContainer from "./components/ShovelContainer";
+import UpgradesShop from "./components/UpgradesShop";
 import Achievements from "./components/Achievements";
 import PlayerData from "./components/PlayerData";
 import Shop from "./components/Shop";
-import HeaderMobile from "./components/HeaderMobile";
+import MobileNav from "./components/MobileNav";
 import { playerContext } from "./PlayerContext";
 import useInterval from "./use-interval.hook";
 
 
 const Game = () => {
-  const { calculatePerSecond, gameData, setGameData } = useContext(playerContext);
-  const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, upgrade, stats, achievements, settings
+  const { calculatePerSecond, gameData, setGameData, isMobile } = useContext(playerContext);
+  const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, upgradesShop, stats, achievements, settings
 
   useInterval(() => {
     if (calculatePerSecond() > 0) {
@@ -23,6 +24,35 @@ const Game = () => {
   return (
     <Wrapper>
       <Bg />
+      {isMobile &&
+        <MobileView>
+          {activeScreen === "shovel" &&
+            <ShovelContainer />
+          }
+
+          {activeScreen === "shop" &&
+            <Shop />
+          }
+
+          {activeScreen === "upgradesShop" &&
+            <UpgradesShop />
+          }
+
+          {activeScreen === "stats" &&
+            "STATS"
+          }
+
+          {activeScreen === "achievements" &&
+            <Achievements />
+          }
+
+          {activeScreen === "settings" &&
+            "SETTINGS"
+          }
+
+          <MobileNav activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+        </MobileView>
+      }
     </Wrapper>
   );
 };
@@ -37,8 +67,16 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (max-width: 768px) {
-  }
+`;
+
+const MobileView = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+align-items: center;
+overflow: hidden;
 `;
 
 

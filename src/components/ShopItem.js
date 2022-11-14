@@ -47,22 +47,20 @@ const Wrapper = styled.div`
 padding: .25rem 0;
 width: 90%;
 min-height: 8rem;
-background-color: ${props => props.locked ? "gray" : "rgba(0,0,0,0.8)"};
+background-color: ${props => props.locked ? "gray" : "#646f77"};
 margin: 30px 0 0 0;
 border-radius: 15px;
+border: 2px solid black;
 display: flex;
 align-items: center;
 justify-content: flex-start;
 user-select: none;
 box-shadow: 0px 5px 15px rgba(0,0,0,0.8);
-color: white;
+color: #e1e4e8;
 
 @media (max-width: 768px) {
     width: 95%;
-    min-height: 6rem;
     font-size: x-small;
-    padding: 0;
-    height: fit-content;
     contain: content;
   }
 
@@ -89,6 +87,7 @@ justify-content: center;
 display: ${props => props.locked ? "none" : "flex"};
 @media (max-width: 768px) {
     margin-right: 1rem;
+    align-items: flex-start;
   }
 
 `;
@@ -96,7 +95,7 @@ display: ${props => props.locked ? "none" : "flex"};
 const Icon = styled.img`
 width: 80%;
 @media (max-width: 768px) {
-   width: 30%;
+   width: 35%;
    z-index: -1;
    opacity: 70%;
    position: absolute;
@@ -130,11 +129,23 @@ margin: .5rem 0;
 const Price = styled.p`
 text-align: left;
 margin: 0;
+@media (max-width: 768px) {
+        margin-top: 2px;
+        font-size: small;
+        -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+  }
 `;
 
 const Produce = styled.p`
 text-align: left;
 margin: 0;
+@media (max-width: 768px) {
+        margin-top: 2px;
+        font-size: small;
+        -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+  }
 `;
 
 const Owned = styled.h3`

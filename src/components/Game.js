@@ -10,7 +10,8 @@ import { playerContext } from "../PlayerContext";
 import useInterval from "../use-interval.hook";
 
 
-const Game = () => {
+const Game = ({mobile}) => {
+  console.log(mobile)
   const { calculatePerSecond, gameData, setGameData } = useContext(playerContext);
   const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, upgrade, stats, achievements, settings
 

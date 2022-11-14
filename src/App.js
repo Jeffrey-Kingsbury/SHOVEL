@@ -1,27 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import PlayerContext from "./PlayerContext";
+import { useContext } from "react";
+import { playerContext } from "./PlayerContext";
+
 import Game from "./Game";
 import styled from "styled-components";
-import {
-  useWindowSize,
-  useWindowWidth,
-  useWindowHeight,
-} from '@react-hook/window-size'
 
 function App() {
-  const [width, height] = useWindowSize();
-  
+  const { width, height } = useContext(playerContext);
+
   return (
     <Wrapper height={height} width={width}>
-      <PlayerContext>
-        {width < 768 && 
-        "MOBILE"
-        }
-        
-        {width >= 768 && 
-        "DESKTOP"
-        }
-      </PlayerContext>
+        <Game />
     </Wrapper>
   );
 }
