@@ -9,6 +9,7 @@ import Shop from "./components/Shop";
 import MobileNav from "./components/MobileNav";
 import { playerContext } from "./PlayerContext";
 import useInterval from "./use-interval.hook";
+import Stats from "./components/Stats";
 
 
 const Game = () => {
@@ -39,7 +40,7 @@ const Game = () => {
           }
 
           {activeScreen === "stats" &&
-            "STATS"
+            <Stats />
           }
 
           {activeScreen === "achievements" &&

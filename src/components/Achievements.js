@@ -9,7 +9,7 @@ const Achievements = () => {
 
   return (
     <Wrapper>
-      <Title>🏆 Achievements 🏆</Title>
+      <Title>Achievements</Title>
       <Content>
         {Object.keys(achievements).map(e => {
           if (gameData.unlockedAchievements.unlocked.includes(e)) {
@@ -52,18 +52,14 @@ const Achievements = () => {
 
 const Wrapper = styled.div`
 width: 100%;
-height: 100%;
+height: 90%;
 display: flex;
 flex-direction: column;
 align-items: center;
-@media (max-width: 768px) {
-   height: 50vh;
-  }
 `;
 
 const Content = styled.div`
 width: 100%;
-max-height: 400px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -72,7 +68,6 @@ border: 5px solid;
 overflow-y: scroll;
 overflow-x: hidden;
 @media (max-width: 768px) {
-   height: 50vh;
   }
 
   /* width */
@@ -105,8 +100,8 @@ overflow-x: hidden;
 `;
 
 const Title = styled.h1`
-width: 100%;
-height: 5rem;
+width: 90%;
+height: 5%;
 padding: 5px 0;
 background-color: #edf2fa;
 border: 5px solid;
