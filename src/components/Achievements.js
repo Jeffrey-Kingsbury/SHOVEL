@@ -64,7 +64,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 background-color: #edf2fa;
-border: 5px solid;
+border: 2px solid;
 overflow-y: scroll;
 overflow-x: hidden;
 @media (max-width: 768px) {
@@ -104,16 +104,17 @@ width: 90%;
 height: 5%;
 padding: 5px 0;
 background-color: #edf2fa;
-border: 5px solid;
+border: 2px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
+font-size: medium;
 `;
 
 const AchievementWrapper = styled.div`
 width: 100%;
-height: 6rem;
+min-height: 8rem;
 display: flex;
 align-items: center;
 background-color: ${props => props.unlocked ? "beige" : "lightgray"};
@@ -139,18 +140,22 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 height: 100%;
-width: 40%;
+width: 30%;
+font-size: x-small;
+margin-right: 0.25rem;
 `;
 const AchievementTitle = styled.h3`
 margin-bottom: 0;
 text-decoration: underline;
+font-size: small;
+line-height: 20px;
 `
 const AchievementDesc = styled.p`
-font-size: small;
+font-size: x-small;
 `
 
 const Icon = styled.img`
-height: 40%;
+height: 30%;
 margin: 0 1rem;
 `;
 export default Achievements;

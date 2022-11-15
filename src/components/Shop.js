@@ -117,7 +117,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
-font-size: x-large;
+font-size: medium;
 `;
 
 const TitleMobile = styled.h1`
@@ -130,7 +130,7 @@ display: none;
 align-items: center;
 justify-content: center;
 box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
-font-size: small;
+font-size: medium;
 @media (max-width: 768px) {
     display: flex;
   }

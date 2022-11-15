@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import styled from "styled-components";
 import { playerContext } from "../PlayerContext";
 import { upgradeItems } from "../upgradeItems";
+import WalletSrc from "../img/wallet.png";
 
 const UpgradesShop = () => {
     const [selectedUpgrade, setSelectedUpgrade] = useState();
@@ -15,6 +16,7 @@ const UpgradesShop = () => {
 
     return(<Wrapper>
 
+        <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
         <Title>Upgrades Shop</Title>
         <ItemsContainer>
         {
@@ -59,22 +61,21 @@ justify-content: space-around;
 `;
 
 const Title = styled.div`
-height: 5%;
 width: 90%;
-padding: 5px 0;
+height: 5%;
 background-color: #e1e4e8;
 border: 2px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: medium;
 box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+font-size: medium;
 `;
 
 const ItemsContainer = styled.div`
-width: 95%;
-height: 40%;
+width: 98%;
+height: 30%;
 
 display: grid;
 grid-template-columns: repeat(auto-fill, 30%);
@@ -90,8 +91,8 @@ padding: 15px 0;
 `;
 
 const DescriptionContainer = styled.div`
-width: 95%;
-height: 40%;
+width: 98%;
+height: 35%;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -107,7 +108,7 @@ padding: 15px 0;
 
 const DescriptionWrapper = styled.div`
 height: 70%;
-width: 90%;
+width: 98%;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -128,9 +129,9 @@ font-family: 'press start 2p';
 const UpgradeItem = styled.img`
     width: 50px;
     transition: all .1s ease-in-out;
-    border: 4px solid black;
+    border: 1px solid black;
     border-radius: 5px;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.3);
     padding: 5px;
     box-shadow: 0 5px 10px 1px rgba(0, 0, 0, .5);
     cursor: pointer;
@@ -149,18 +150,25 @@ const UpgradeItem = styled.img`
 `;
 
 const Name = styled.p`
-font-size: larger;
+font-size: medium;
 line-height: 25px;
 margin: 5px;
 `;
 
 const Price = styled.p`
-font-size: larger;
+font-size: large;
 margin: 5px;
 `;
 
 const Desc = styled.p`
-font-size: small;
+font-size: x-small;
 line-height: 25px;
 `;
+
+const Img = styled.img`
+height: 90%;
+margin: 0 1rem;
+user-select: none;
+`;
+
 export default UpgradesShop;
