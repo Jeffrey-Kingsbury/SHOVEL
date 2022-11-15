@@ -10,6 +10,7 @@ import MobileNav from "./components/MobileNav";
 import { playerContext } from "./PlayerContext";
 import useInterval from "./use-interval.hook";
 import Stats from "./components/Stats";
+import Settings from "./components/Settings";
 
 
 const Game = () => {
@@ -48,7 +49,7 @@ const Game = () => {
           }
 
           {activeScreen === "settings" &&
-            "SETTINGS"
+            <Settings />
           }
 
           <MobileNav activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
