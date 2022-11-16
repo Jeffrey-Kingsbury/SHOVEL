@@ -4,7 +4,6 @@ import Bg from "./components/Bg";
 import ShovelContainer from "./components/ShovelContainer";
 import UpgradesShop from "./components/UpgradesShop";
 import Achievements from "./components/Achievements";
-import PlayerData from "./components/PlayerData";
 import Shop from "./components/Shop";
 import MobileNav from "./components/MobileNav";
 import { playerContext } from "./PlayerContext";
