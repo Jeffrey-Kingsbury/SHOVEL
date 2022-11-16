@@ -56,6 +56,10 @@ height: 90%;
 display: flex;
 flex-direction: column;
 align-items: center;
+@media (min-width: 769px) {
+    height: 80%;
+    width: 45%;
+  }
 `;
 
 const Content = styled.div`
@@ -67,7 +71,9 @@ background-color: #edf2fa;
 border: 2px solid;
 overflow-y: scroll;
 overflow-x: hidden;
-@media (max-width: 768px) {
+@media (min-width: 769px) {
+    height: 90%;
+    width: 90%;
   }
 
   /* width */
@@ -101,15 +107,19 @@ overflow-x: hidden;
 
 const Title = styled.h1`
 width: 90%;
-height: 5%;
 padding: 5px 0;
-background-color: #edf2fa;
+height: 5%;
+background-color: #e1e4e8;
 border: 2px solid;
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
 font-size: medium;
+@media (min-width: 769px) {
+  font-size: larger;
+  height: 3rem;
+  }
 `;
 
 const AchievementWrapper = styled.div`

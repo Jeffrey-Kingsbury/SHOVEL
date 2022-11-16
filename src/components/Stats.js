@@ -104,6 +104,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 769px) {
+    height: 80%;
+    width: 45%;
+  }
 `;
 
 const Title = styled.h1`

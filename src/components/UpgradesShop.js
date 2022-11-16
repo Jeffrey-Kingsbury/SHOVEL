@@ -6,7 +6,7 @@ import WalletSrc from "../img/wallet.png";
 
 const UpgradesShop = () => {
     const [selectedUpgrade, setSelectedUpgrade] = useState();
-    const { gameData, purchaseUpgrade } = useContext(playerContext);
+    const { gameData, purchaseUpgrade, isMobile } = useContext(playerContext);
 
     const submitPurchase = () => {
         if (purchaseUpgrade(selectedUpgrade)) {
@@ -16,7 +16,11 @@ const UpgradesShop = () => {
 
     return (<Wrapper>
 
-        <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
+        {isMobile &&
+            <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />
+                {gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$
+            </Title>
+        }
         <Title>Upgrades Shop</Title>
         <ItemsContainer>
             {
@@ -61,6 +65,10 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-around;
+@media (min-width: 769px) {
+    height: 50%;
+    width: 100%;
+  }
 `;
 
 const Title = styled.div`
@@ -91,6 +99,9 @@ border-radius: 10px;
 overflow-y: auto;
 overflow-x: hidden;
 padding: 15px 0;
+@media (min-width: 769px) {
+    width: 90%;
+  }
 `;
 
 const DescriptionContainer = styled.div`
@@ -107,6 +118,10 @@ border-radius: 10px;
 overflow-y: auto;
 overflow-x: hidden;
 padding: 15px 0;
+@media (min-width: 769px) {
+
+    width: 90%;
+  }
 `;
 
 const DescriptionWrapper = styled.div`

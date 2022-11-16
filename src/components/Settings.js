@@ -63,6 +63,11 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+background-color: rgba(0,0,0,0.7);
+
+@media (min-width: 769px) {
+    height: 100%;
+  }
 `;
 
 const Button = styled.button`
@@ -74,6 +79,12 @@ border: 2px solid;
 color: #000;
 box-shadow: 0 5px 5px rgba(0,0,0,0.5);
 user-select: none;
+transition: all .1s ease-in-out;
+
+@media (min-width: 769px) {
+    width:50%
+  }
+
 @media (hover: hover) {
     &:hover{
         transform: scale(1.05);
@@ -94,6 +105,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 text-align: center;
+color: white;
 `;
 
 const SaveExportTextArea = styled.textarea`
