@@ -14,13 +14,12 @@ import { useWindowSize } from '@react-hook/window-size';
 ls.config.encrypt = true;
 
 
-
 export const playerContext = createContext();
 
 const PlayerContext = ({ children }) => {
     const [width, height] = useWindowSize();
     const isMobile = width < 768;
-
+    
     const [gameData, setGameData] = useState(usePersistedState({
         wallet: 0,
         purchases: Object.entries(hires[0]).map(e => {
@@ -29,6 +28,7 @@ const PlayerContext = ({ children }) => {
                 data: [e[1]]
             };
         }),
+        reset:false,
         upgrades: upgradeItems,
         purchasedUpgrades: [],
         unlockedAchievements: { unlocked: [] },
@@ -39,7 +39,7 @@ const PlayerContext = ({ children }) => {
         lifetimeAutoWallet: 0,
         fastestClick: new Date().getTime(),
     }, "gameData")[0]);
-
+    
     useEffect(() => {
         ls.set("gameData", JSON.stringify(gameData));
     }, [gameData]);

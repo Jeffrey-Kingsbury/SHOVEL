@@ -15,7 +15,7 @@ const Stats = () => {
       <Title>Stats</Title>
 
       <Container>
-        <Desc>Achievements:</Desc>
+        <Desc>Achievements</Desc>
         <Qty>{gameData.unlockedAchievements.unlocked.length}/
           {Object.keys(achievements).length}
         </Qty>
@@ -32,7 +32,16 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money (Lifetime)
+          Total Clicks<br/>(Auto)
+        </Desc>
+        <Qty>
+          {gameData.autoClicksLT}
+        </Qty>
+      </Container>
+
+      <Container>
+        <Desc>
+          Money<br/>(Lifetime)
         </Desc>
         <Qty>
           {gameData.lifetimeWallet}
@@ -41,7 +50,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money (Auto)
+          Money<br/>(Auto)
         </Desc>
         <Qty>
           {gameData.lifetimeAutoWallet}
@@ -50,7 +59,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money (Clicks)
+          Money<br/>(Clicks)
         </Desc>
         <Qty>
           {gameData.lifetimeClickWallet}
@@ -59,7 +68,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Fastest Click
+          Fastest<br/>Click
         </Desc>
         <Qty>
           {gameData.fastestClick}ms
@@ -68,7 +77,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Purchased Upgrades
+          Purchased<br/>Upgrades
         </Desc>
         <Qty>
           {gameData.purchasedUpgrades.length}/
@@ -78,7 +87,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Total Purchases
+          Total<br/>Purchases
         </Desc>
         <Qty>
           {totalPurchases}
@@ -126,7 +135,9 @@ margin-left: 5px;
 `;
 
 const Qty = styled.p`
-width: 25%;
+width: 50%;
+font-size: small;
+word-break: break-all;
 `;
 
 export default Stats;

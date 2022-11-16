@@ -4,7 +4,7 @@ import ls from 'localstorage-slim';
 import { playerContext } from "../PlayerContext";
 
 const Settings = () => {
-    const { gameData } = useContext(playerContext);
+    const { gameData, setGameData } = useContext(playerContext);
 
     const [exportSavePop, setExportSavePop] = useState(false);
     const [importSavePop, setImportSavePop] = useState(false);
@@ -13,16 +13,15 @@ const Settings = () => {
     const reset = () => {
         if (window.confirm("Are you sure?\n\nThis will erase all save data. This action cannot be undone.")) {
             if (window.confirm("Last chance to cancel... Are you really sure?")) {
-                ls.clear();
-                window.location.reload();
+                setGameData({...gameData, reset:true});
             };
         };
     };
 
     const importSave = (e) => {
         ls.set("import", JSON.parse(e), {encrypt:false});
-        if(ls.get("import", {decrypt:true}).wallet >= 0 ){
-                ls.set("gameData", JSON.stringify(ls.get("import", {decrypt:true}), {encrypt:true}));
+        if(JSON.parse(ls.get("import", {decrypt:true})).wallet >= 0 ){
+                ls.set("gameData", JSON.stringify(JSON.parse(ls.get("import", {decrypt:true})), {encrypt:true}));
                 ls.remove("import");
                 window.location.reload();
         }
@@ -32,7 +31,7 @@ const Settings = () => {
         {!exportSavePop && !importSavePop &&
             <>
                 <Button onClick={() => { reset() }}>RESET</Button>
-                <Button onClick={() => { ls.set("gameData", gameData, {encrypt: true}); setExportSavePop(true) }}>EXPORT SAVE</Button>
+                <Button onClick={() => { ls.set("gameData", JSON.stringify(gameData), {encrypt: true}); setExportSavePop(true) }}>EXPORT SAVE</Button>
                 <Button onClick={() => { setImportSavePop(true) }}>IMPORT SAVE</Button>
             </>
             }

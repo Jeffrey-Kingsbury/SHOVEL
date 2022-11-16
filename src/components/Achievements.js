@@ -141,8 +141,9 @@ align-items: center;
 justify-content: center;
 height: 100%;
 width: 30%;
-font-size: x-small;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 margin-right: 0.25rem;
+font-size: small;
 `;
 const AchievementTitle = styled.h3`
 margin-bottom: 0;
@@ -151,7 +152,8 @@ font-size: small;
 line-height: 20px;
 `
 const AchievementDesc = styled.p`
-font-size: x-small;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+margin: 0;
 `
 
 const Icon = styled.img`

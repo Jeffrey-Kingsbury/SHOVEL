@@ -10,6 +10,7 @@ import { playerContext } from "./PlayerContext";
 import useInterval from "./use-interval.hook";
 import Stats from "./components/Stats";
 import Settings from "./components/Settings";
+import ls from 'localstorage-slim';
 
 
 const Game = () => {
@@ -17,6 +18,11 @@ const Game = () => {
   const [activeScreen, setActiveScreen] = useState("shovel"); //shovel, store, upgradesShop, stats, achievements, settings
 
   useInterval(() => {
+    if(gameData.reset){
+      ls.clear();
+      window.location.reload();
+      return;
+    }
     if (calculatePerSecond() > 0) {
       setGameData({ ...gameData, wallet: gameData.wallet + calculatePerSecond(), lifetimeWallet: gameData.lifetimeWallet + calculatePerSecond(), lifetimeAutoWallet: gameData.lifetimeAutoWallet + calculatePerSecond(), autoClicksLT: gameData.autoClicksLT + 1 })
     }

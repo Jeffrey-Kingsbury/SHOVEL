@@ -23,6 +23,8 @@ const ShopItem = ({name, tippy, price, produce, img, owned, locked = true, id}) 
                 <Price>Price: {price > 99999 ? price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : price}$</Price>
                 <Produce>Produces: {produce  > 99999 ? produce.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : produce}$/second</Produce>
                 <Owned>Owned: {owned}</Owned>
+                <hr style={{width:'100%'}}/>
+                <Desc>{tippy}</Desc>
             </DataContainer>
         </Wrapper>
         </TippyWithStyle>
@@ -46,7 +48,7 @@ const TippyWithStyle = styled(Tippy)`
 const Wrapper = styled.div`
 padding: .25rem 0;
 width: 90%;
-min-height: 8rem;
+min-height: 9rem;
 background-color: ${props => props.locked ? "gray" : "#646f77"};
 margin: 30px 0 0 0;
 border-radius: 15px;
@@ -121,14 +123,17 @@ align-items: flex-start;
 padding: 0 0 0 1rem;
 `;
 
-const Name = styled.h3`
+const Name = styled.h2`
 text-align: left;
-margin: .5rem 0;
+margin: 0;
+font-size: medium;
 `;
 
 const Price = styled.p`
 text-align: left;
 margin: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 @media (max-width: 768px) {
         margin-top: 2px;
         font-size: small;
@@ -140,6 +145,8 @@ margin: 0;
 const Produce = styled.p`
 text-align: left;
 margin: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 @media (max-width: 768px) {
         margin-top: 2px;
         font-size: small;
@@ -148,10 +155,21 @@ margin: 0;
   }
 `;
 
-const Owned = styled.h3`
+const Owned = styled.p`
 width: 100%;
 text-align: left;
-margin: 10px 0;
+margin: 0;
+font-size: small;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+`;
+
+const Desc = styled.p`
+width: 100%;
+text-align: left;
+margin: 0;
+font-size: small;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-style: italic;
 `;
 
 export default ShopItem;

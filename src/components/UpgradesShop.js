@@ -6,47 +6,50 @@ import WalletSrc from "../img/wallet.png";
 
 const UpgradesShop = () => {
     const [selectedUpgrade, setSelectedUpgrade] = useState();
-    const { gameData, purchaseUpgrade} = useContext(playerContext);
+    const { gameData, purchaseUpgrade } = useContext(playerContext);
 
     const submitPurchase = () => {
-        if(purchaseUpgrade(selectedUpgrade)){
+        if (purchaseUpgrade(selectedUpgrade)) {
             setSelectedUpgrade(!selectedUpgrade)
         };
     };
 
-    return(<Wrapper>
+    return (<Wrapper>
 
         <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
         <Title>Upgrades Shop</Title>
         <ItemsContainer>
-        {
-                    Object.keys(upgradeItems).map(e => {
-                        if (upgradeItems[e].lock(gameData) === false) {
-                            return <UpgradeItem onClick={()=>{setSelectedUpgrade(upgradeItems[e].id)}} key={upgradeItems[e].id} draggable="false" src={upgradeItems[e].src} alt={upgradeItems[e].name} />
-                        }else{ 
-                            return false
-                        }
-                    })
-                }
+            {
+                Object.keys(upgradeItems).map(e => {
+                    if (upgradeItems[e].lock(gameData) === false) {
+                        return <UpgradeItem onClick={() => { setSelectedUpgrade(upgradeItems[e].id) }} key={upgradeItems[e].id} draggable="false" src={upgradeItems[e].src} alt={upgradeItems[e].name} />
+                    } else {
+                        return false
+                    }
+                })
+            }
         </ItemsContainer>
 
         <DescriptionContainer>
             <DescriptionWrapper>
-                {!selectedUpgrade && 
-                "Select an upgrade"}
+                {!selectedUpgrade &&
+                    "Select an upgrade"}
 
                 {selectedUpgrade &&
-                <>
-                <Name>{upgradeItems[selectedUpgrade].name}</Name>
-                <hr style={{width:"90%"}}/>
-                <Price>{upgradeItems[selectedUpgrade].price}$</Price>
-                <Desc>{upgradeItems[selectedUpgrade].desc}</Desc>
-                </>
+                    <>
+                        <Name>{upgradeItems[selectedUpgrade].name}</Name>
+                        <hr style={{ width: "90%" }} />
+                        <Price>
+                            {upgradeItems[selectedUpgrade].price > 99999 ? upgradeItems[selectedUpgrade].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : upgradeItems[selectedUpgrade].price}$
+                        </Price>
+                        <Desc>{upgradeItems[selectedUpgrade].desc}</Desc>
+                        <Tip>"{upgradeItems[selectedUpgrade].tippy}"</Tip>
+                    </>
 
-                
+
                 }
             </DescriptionWrapper>
-                    <PurchaseButton onClick={()=>{submitPurchase()}} disabled={!selectedUpgrade}>Purchase</PurchaseButton>
+            <PurchaseButton onClick={() => { submitPurchase() }} disabled={!selectedUpgrade}>Purchase</PurchaseButton>
         </DescriptionContainer>
     </Wrapper>);
 };
@@ -121,6 +124,7 @@ const PurchaseButton = styled.button`
 height: 3rem;
 width: 90%;
 border-radius: 15px;
+color: black;
 background-color: ${props => !props.disabled ? "lightgreen" : "lightgray"};
 font-size: larger;
 font-family: 'press start 2p';
@@ -161,14 +165,23 @@ margin: 5px;
 `;
 
 const Desc = styled.p`
-font-size: x-small;
 line-height: 25px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: larger;
+margin: 15px 1rem;
 `;
 
 const Img = styled.img`
 height: 90%;
 margin: 0 1rem;
 user-select: none;
+`;
+
+const Tip = styled.p`
+font-size: medium;
+font-style: italic;
+margin: 5px 0 25px 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 export default UpgradesShop;
