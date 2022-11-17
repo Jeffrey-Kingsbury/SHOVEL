@@ -8,45 +8,39 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 const Shop = () => {
-    const { gameData, hires, purchaseUpgrade} = useContext(playerContext);
+  const { gameData, hires } = useContext(playerContext);
 
-    const getOwned = (name) => {
-        if (name === undefined) {
-            return 0
-        }
+  const getOwned = (name) => {
+    if (name === undefined) {
+      return 0
+    }
 
-        let owned = 0;
-        let price = 0;
-        let produce = 0;
+    if(!gameData.purchases[name]){
+      return 0
+    }
 
-        gameData.purchases.every((e, i) => {
-            if (Object.keys(e)[0] === name) {
-                owned = ( gameData.purchases[i][name])
-                price = ( gameData.purchases[i].data[0].price)
-                produce = ( gameData.purchases[i].data[0].produce)
-                return false;
-            }
-            return true;
-        })
+    const owned = (gameData.purchases[name].qty)
+    const price = (gameData.purchases[name].price)
+    const produce = (gameData.purchases[name].produce)
 
-        return { owned: owned, price: price, produce: produce };
+    return { owned: owned, price: price, produce: produce };
 
-    };
+  };
 
-    return (
-        <Wrapper>
-                        <TitleMobile><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</TitleMobile>
-            <Title>The shop</Title>
-            <People>
-                {
-                    Object.entries(hires[0]).map(e => {
-                        const id = e[1];
-                        return <ShopItem key={e[0]} locked={id.lock(gameData)} id={e[0]} name={id.name} price={getOwned(e[0]).price} produce={getOwned(e[0]).produce} owned={getOwned(e[0]).owned} tippy={id.tippy} img={id.img} />
+  return (
+    <Wrapper>
+      <TitleMobile><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</TitleMobile>
+      <Title>The shop</Title>
+      <People>
+        {
+          Object.entries(hires).map(e => {
+            const id = e[0];
+            return <ShopItem key={e[0]} locked={hires[id].lock(gameData)} id={id} name={e[1].name} price={getOwned(id).price} produce={getOwned(id).produce} owned={getOwned(id).owned} tippy={e[1].tippy} img={e[1].img} />
 
-                    })}
-            </People>
-        </Wrapper>
-    );
+          })}
+      </People>
+    </Wrapper>
+  );
 };
 
 

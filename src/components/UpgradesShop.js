@@ -21,7 +21,7 @@ const UpgradesShop = () => {
                 {gameData.wallet > 99999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$
             </Title>
         }
-        <Title>Upgrades Shop</Title>
+        <Title>Upgrades</Title>
         <ItemsContainer>
             {
                 Object.keys(upgradeItems).map(e => {
@@ -101,6 +101,7 @@ overflow-x: hidden;
 padding: 15px 0;
 @media (min-width: 769px) {
     width: 90%;
+    height: 20%;
   }
 `;
 
@@ -119,7 +120,7 @@ overflow-y: auto;
 overflow-x: hidden;
 padding: 15px 0;
 @media (min-width: 769px) {
-
+    height: 50%;
     width: 90%;
   }
 `;

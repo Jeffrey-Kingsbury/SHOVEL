@@ -6,9 +6,11 @@ const Stats = () => {
   const { gameData, achievements } = useContext(playerContext);
 
   let totalPurchases = 0;
-  gameData.purchases.forEach((e) => {
-    totalPurchases += e[Object.keys(e)[0]];
-  });
+
+
+  Object.entries(gameData.purchases).forEach(e =>{
+    totalPurchases += e[1].qty
+  })
 
   return (
     <Wrapper>

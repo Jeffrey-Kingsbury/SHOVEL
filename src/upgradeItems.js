@@ -147,15 +147,13 @@ export const upgradeItems = {
       return upgrade
     },
     lock: (gameData) => {
-      return gameData.purchases.every(e => {
-        if (Object.keys(e)[0] === 'toddler') {
-          if (e.toddler >= 30 && !gameData.purchasedUpgrades.includes('specialMilk')) {
+
+
+          if (gameData.purchases.toddler.qty >= 30 && !gameData.purchasedUpgrades.includes('specialMilk')) {
             return false;
+          }else{
+            return true;
           }
-          return true;
-        }
-        return true;
-      })
     },
   },
 
@@ -174,7 +172,8 @@ export const upgradeItems = {
     price: 7500,
     purchase: (gameData) => {
 
-      const upgrade = gameData.purchases.map((e) => {
+      const upgrade = Object.entries(gameData.purchases).map((e) => {
+        console.log(e)
         if (Object.keys(e)[0] === "localTeen") {
           e[Object.keys(e)[1]][0].produce =
             e[Object.keys(e)[1]][0].produce * 2;
@@ -185,15 +184,11 @@ export const upgradeItems = {
       return upgrade
     },
     lock: (gameData) => {
-      return gameData.purchases.every(e => {
-        if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 30 && !gameData.purchasedUpgrades.includes('pyromania1')) {
+          if (gameData.purchases.localTeen.qty >= 30 && !gameData.purchasedUpgrades.includes('pyromania1')) {
             return false
-          }
+          }else{
           return true
         }
-        return true;
-      })
     },
   },
 
@@ -217,15 +212,12 @@ export const upgradeItems = {
       return upgrade
     },
     lock: (gameData) => {
-      return gameData.purchases.every(e => {
-        if (Object.keys(e)[0] === 'localTeen') {
-          if (e.localTeen >= 50 && !gameData.purchasedUpgrades.includes('pyromania2') && gameData.purchasedUpgrades.includes('pyromania1')) {
+          if (gameData.purchases.localTeen.qty >= 50 && !gameData.purchasedUpgrades.includes('pyromania2') && gameData.purchasedUpgrades.includes('pyromania1')) {
             return false
-          }
+          }else{
           return true
         }
-        return true;
-      })
+
     },
   },
 };

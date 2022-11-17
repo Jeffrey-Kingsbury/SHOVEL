@@ -22,12 +22,7 @@ const PlayerContext = ({ children }) => {
     
     const [gameData, setGameData] = useState(usePersistedState({
         wallet: 0,
-        purchases: Object.entries(hires[0]).map(e => {
-            return {
-                [e[0]]: 0,
-                data: [e[1]]
-            };
-        }),
+        purchases: hires,
         reset:false,
         upgrades: upgradeItems,
         purchasedUpgrades: [],
@@ -38,7 +33,24 @@ const PlayerContext = ({ children }) => {
         lifetimeClickWallet: 0,
         lifetimeAutoWallet: 0,
         fastestClick: new Date().getTime(),
+        perSecond: 0
     }, "gameData")[0]);
+    
+
+//Updates the purchases so when new hires are added, the gameData will contain them as well.
+    useEffect(()=> {
+        const defaults = {}
+
+        Object.entries(hires).forEach(e => {
+            if(gameData.purchases[e[0]]){
+                defaults[e[0]] = gameData.purchases[e[0]];
+            }
+            defaults[e[0]] = hires[e[0]];
+        })
+
+        setGameData({...gameData, purchases: defaults})
+    }, []);
+
     
     useEffect(() => {
         ls.set("gameData", JSON.stringify(gameData));
@@ -53,11 +65,11 @@ const PlayerContext = ({ children }) => {
         })
     }
 
-    Object.keys(achievements).forEach((e) => {
-        if (!gameData.unlockedAchievements.unlocked.includes(e)) {
-            achievements[e].unlock(achievementToast, gameData, setGameData);
-        }
-    })
+    // Object.keys(achievements).forEach((e) => {
+    //     if (!gameData.unlockedAchievements.unlocked.includes(e)) {
+    //         achievements[e].unlock(achievementToast, gameData, setGameData);
+    //     }
+    // })
 
     const notEnoughMoneyToast = () => {
         toast.error("You're broke and can't afford this!", {
@@ -116,35 +128,27 @@ const PlayerContext = ({ children }) => {
 
     const calculatePerSecond = () => {
         let ps = 0;
-        gameData.purchases.forEach(e => {
-            ps += ([Object.values(e)[0]] * Object.values(e)[1][0].produce);
-
+        Object.entries(gameData.purchases).forEach((e) => {
+            ps += (e[1].produce * e[1].qty)
         })
         return ps;
     };
 
     const purchaseHelp = (name) => {
         let newWallet = gameData.wallet;
-        const hire = gameData.purchases.map((e, i) => {
-            //access data e[Object.keys(e)[1]][0]
-            //acces owned e[Object.keys(e)[0]]
-
-            if (Object.keys(e)[0] === name) {
-                if (gameData.wallet - e[Object.keys(e)[1]][0].price < 0) {
-                    notEnoughMoneyToast();
-                    return e;
-                };
-                newWallet = newWallet - e[Object.keys(e)[1]][0].price
-
-                e[Object.keys(e)[0]] += 1;
-                e[Object.keys(e)[1]][0].price = (Math.ceil(e[Object.keys(e)[1]][0].price * 1.08)).toFixed(0);
-                calculatePerSecond();
-                return e;
+        let hireStorage = gameData.purchases;
+        
+            if(gameData.wallet - gameData.purchases[name].price < 0){
+                notEnoughMoneyToast();
+                return;
             }
-            return e;
-        })
-
-        setGameData({ ...gameData, purchases: hire, wallet: newWallet });
+            
+            newWallet -= hireStorage[name].price;
+            hireStorage[name].qty += 1;
+            hireStorage[name].price = (Math.ceil(hireStorage[name].price * 1.09)).toFixed(0);
+            calculatePerSecond();
+            setGameData({ ...gameData, purchases: hireStorage, wallet: newWallet });
+        
     }
 
     const purchaseUpgrade = (id) => {

@@ -139,8 +139,8 @@ export const achievements = {
         desc: "Purchase a Toddler",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 1) {
+           
+                if (gameData.purchases.toddler.qty >= 1) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler0"] = getDate();
                     allUnlocked.unlocked.push("toddler0");
@@ -148,8 +148,7 @@ export const achievements = {
                     achievementToast("Bundle of joy");
                     return;
                 }
-                return;
-            });
+
         }
     },
     
@@ -159,8 +158,8 @@ export const achievements = {
         desc: "Purchase 10 Toddlers",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 10) {
+            
+                if (gameData.purchases.toddler.qty >= 10) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler1"] = getDate();
                     allUnlocked.unlocked.push("toddler1");
@@ -168,8 +167,6 @@ export const achievements = {
                     achievementToast("Nursery");
                     return;
                 }
-                return;
-            });
         }
     },
 
@@ -178,8 +175,7 @@ export const achievements = {
         desc: "Purchase 30 Toddlers",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 30) {
+                if (gameData.purchases.toddler.qty >= 30) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler2"] = getDate();
                     allUnlocked.unlocked.push("toddler2");
@@ -187,8 +183,7 @@ export const achievements = {
                     achievementToast("Daycare");
                     return;
                 }
-                return;
-            });
+
         }
     },
 
@@ -197,8 +192,7 @@ export const achievements = {
         desc: "Purchase 69 Toddlers",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 69) {
+                if (gameData.purchases.toddler.qty >= 69) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler3"] = getDate();
                     allUnlocked.unlocked.push("toddler3");
@@ -206,8 +200,6 @@ export const achievements = {
                     achievementToast("Valentina Vassilyev");
                     return;
                 }
-                return;
-            });
         }
     },
 
@@ -216,8 +208,7 @@ export const achievements = {
         desc: "Purchase 87 Toddlers",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 87) {
+                if (gameData.purchases.toddler.qty >= 87) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler4"] = getDate();
                     allUnlocked.unlocked.push("toddler4");
@@ -225,8 +216,7 @@ export const achievements = {
                     achievementToast("Feodor Vassilyev");
                     return;
                 }
-                return;
-            });
+
         }
     },
 
@@ -235,8 +225,7 @@ export const achievements = {
         desc: "Purchase 100 Toddlers",
         hidden: true,
         unlock: (achievementToast, gameData, setGameData) => {
-            gameData.purchases.forEach(e => {
-                if (Object.keys(e)[0] === "toddler" && e[Object.keys(e)[0]] >= 100) {
+                if (gameData.purchases.toddler.qty >= 100) {
                     const allUnlocked = gameData.unlockedAchievements;
                     allUnlocked["toddler5"] = getDate();
                     allUnlocked.unlocked.push("toddler5");
@@ -244,8 +233,6 @@ export const achievements = {
                     achievementToast("Preschool");
                     return;
                 }
-                return;
-            });
         }
     },
 };

@@ -121,7 +121,6 @@ const IconContainer = styled.div`
   justify-content: center;
   display: ${(props) => (props.locked ? "none" : "flex")};
   margin-right: 1rem;
-  align-items: flex-start;
 
   @media (min-width: 769px) {
     contain: content;
@@ -129,9 +128,10 @@ const IconContainer = styled.div`
 `;
 
 const Icon = styled.img`
-  width: 80%;
+  height: 110%;
   @media (max-width: 768px) {
     width: 35%;
+    height: auto;
     z-index: -1;
     opacity: 70%;
     position: absolute;
