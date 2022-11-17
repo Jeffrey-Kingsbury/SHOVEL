@@ -133,23 +133,19 @@ export const upgradeItems = {
     desc: "Toddlers will produce 2x as much money!",
     tippy: "Brought to you by the proud folks at cyclopentanoperhydrophenanthrene Inc.",
     src: SpecialMilkSrc,
-    price: 5000,
+    price: 1,
     purchase: (gameData) => {
-      console.log(gameData.purchases)
-      const upgrade = gameData.purchases.map((e) => {
-        if (Object.keys(e)[0] === "toddler") {
-          e[Object.keys(e)[1]][0].produce =
-            e[Object.keys(e)[1]][0].produce * 2;
-          return e;
-        }
-        return e;
-      });
-      return upgrade
+      console.log("purchased")
+      const purchaseStorage = gameData.purchases; 
+      console.log(purchaseStorage.toddler.produce)
+      purchaseStorage.toddler.produce = gameData.purchases.toddler.produce * 2;
+
+      return purchaseStorage
     },
     lock: (gameData) => {
 
 
-          if (gameData.purchases.toddler.qty >= 30 && !gameData.purchasedUpgrades.includes('specialMilk')) {
+          if (gameData.purchases.toddler.qty >= 0 && !gameData.purchasedUpgrades.includes('specialMilk')) {
             return false;
           }else{
             return true;

@@ -44,8 +44,9 @@ const PlayerContext = ({ children }) => {
         Object.entries(hires).forEach(e => {
             if(gameData.purchases[e[0]]){
                 defaults[e[0]] = gameData.purchases[e[0]];
+            }else{
+                defaults[e[0]] = hires[e[0]];
             }
-            defaults[e[0]] = hires[e[0]];
         })
 
         setGameData({...gameData, purchases: defaults})
@@ -65,11 +66,11 @@ const PlayerContext = ({ children }) => {
         })
     }
 
-    // Object.keys(achievements).forEach((e) => {
-    //     if (!gameData.unlockedAchievements.unlocked.includes(e)) {
-    //         achievements[e].unlock(achievementToast, gameData, setGameData);
-    //     }
-    // })
+    Object.keys(achievements).forEach((e) => {
+        if (!gameData.unlockedAchievements.unlocked.includes(e)) {
+            achievements[e].unlock(achievementToast, gameData, setGameData);
+        }
+    })
 
     const notEnoughMoneyToast = () => {
         toast.error("You're broke and can't afford this!", {
@@ -162,10 +163,9 @@ const PlayerContext = ({ children }) => {
         setGameData({
             ...gameData,
             wallet: gameData.wallet - upgradeItems[id].price,
-            purchasedUpgrades: upgradesArray
+            purchasedUpgrades: upgradesArray,
+            purchases: upgradeItems[id].purchase(gameData)
         });
-
-        upgradeItems[id].purchase(gameData);
 
         return true;
     }
