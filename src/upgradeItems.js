@@ -135,9 +135,7 @@ export const upgradeItems = {
     src: SpecialMilkSrc,
     price: 1,
     purchase: (gameData) => {
-      console.log("purchased")
       const purchaseStorage = gameData.purchases; 
-      console.log(purchaseStorage.toddler.produce)
       purchaseStorage.toddler.produce = gameData.purchases.toddler.produce * 2;
 
       return purchaseStorage
