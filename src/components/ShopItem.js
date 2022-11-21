@@ -15,7 +15,7 @@ const ShopItem = ({
   locked = true,
   id,
 }) => {
-  const { purchaseHelp } = useContext(playerContext);
+  const { purchaseHelp, isMobile } = useContext(playerContext);
 
   return (
     <TippyWithStyle
@@ -56,8 +56,8 @@ const ShopItem = ({
             $/second
           </Produce>
           <Owned>Owned: {owned}</Owned>
-          <hr style={{ width: "100%" }} />
-          <Desc>{tippy}</Desc>
+          {isMobile && <hr style={{ width: "100%" }} />}
+          {isMobile && <Desc>{tippy}</Desc>}
         </DataContainer>
       </Wrapper>
     </TippyWithStyle>

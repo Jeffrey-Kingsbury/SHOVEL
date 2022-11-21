@@ -166,16 +166,11 @@ export const upgradeItems = {
     price: 7500,
     purchase: (gameData) => {
 
-      const upgrade = Object.entries(gameData.purchases).map((e) => {
-        console.log(e)
-        if (Object.keys(e)[0] === "localTeen") {
-          e[Object.keys(e)[1]][0].produce =
-            e[Object.keys(e)[1]][0].produce * 2;
-          return e;
-        }
-        return e;
-      });
-      return upgrade
+      const purchaseStorage = gameData.purchases; 
+      purchaseStorage.localTeen.produce = gameData.purchases.localTeen.produce * 2;
+
+      return purchaseStorage
+
     },
     lock: (gameData) => {
           if (gameData.purchases.localTeen.qty >= 30 && !gameData.purchasedUpgrades.includes('pyromania1')) {
@@ -194,17 +189,12 @@ export const upgradeItems = {
     src: Pyro2Src,
     price: 100000,
     purchase: (gameData) => {
+      const purchaseStorage = gameData.purchases; 
+      purchaseStorage.localTeen.produce = gameData.purchases.localTeen.produce * 3;
 
-      const upgrade = gameData.purchases.map((e) => {
-        if (Object.keys(e)[0] === "localTeen") {
-          e[Object.keys(e)[1]][0].produce =
-            e[Object.keys(e)[1]][0].produce * 3;
-          return e;
-        }
-        return e;
-      });
-      return upgrade
+      return purchaseStorage
     },
+    
     lock: (gameData) => {
           if (gameData.purchases.localTeen.qty >= 50 && !gameData.purchasedUpgrades.includes('pyromania2') && gameData.purchasedUpgrades.includes('pyromania1')) {
             return false
