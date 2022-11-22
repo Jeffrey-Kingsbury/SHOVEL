@@ -10,17 +10,17 @@ const ShovelButton = () => {
 
 
     const clickSpeedCheck = () => {
-        if(!gameData.unlockedAchievements.unlocked.includes("fastest")){
+        if (!gameData.unlockedAchievements.unlocked.includes("fastest")) {
             const time = new Date().getTime();
             setLastClick(new Date().getTime());
-            if(gameData.fastestClick > time - lastClick){
-                setGameData({...gameData, fastestClick:time - lastClick})
+            if (gameData.fastestClick > time - lastClick) {
+                setGameData({ ...gameData, fastestClick: time - lastClick })
             }
         }
     }
 
     return (
-        <Wrapper onClick={(e)=>{shovelManualClick(e.clientX, e.clientY); clickSpeedCheck();}} id="shovelButton">
+        <Wrapper onClick={(e) => { shovelManualClick(e.clientX, e.clientY); clickSpeedCheck(); }} id="shovelButton">
             {/* <Img src={ShovelIcon} alt="Shovel!" draggable={false} onContextMenu={(e)=>{e.preventDefault()}}/> */}
             <h1>DIG!</h1>
         </Wrapper>

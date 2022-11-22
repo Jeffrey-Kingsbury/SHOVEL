@@ -6,14 +6,14 @@ import achievementSrc from "../img/trophy.png";
 import statsSrc from "../img/pie-chart.png";
 import settingsSrc from "../img/settings.png";
 
-const MobileNav = ({activeScreen, setActiveScreen}) =>{
-    return(<Wrapper>
-        <Icon onClick={()=>{setActiveScreen("shovel")}} src={shovelSrc} alt="Shovel" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("shop")}} src={cartSrc} alt="Store" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("upgradesShop")}} src={upgradeSrc} alt="Upgrades" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("stats")}} src={statsSrc} alt="Stats" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("achievements")}} src={achievementSrc} alt="Achievements" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("settings")}} src={settingsSrc} alt="Settings" draggable="false"/>
+const MobileNav = ({ setActiveScreen }) => {
+    return (<Wrapper>
+        <Icon onClick={() => { setActiveScreen("shovel") }} src={shovelSrc} alt="Shovel" draggable="false" />
+        <Icon onClick={() => { setActiveScreen("shop") }} src={cartSrc} alt="Store" draggable="false" />
+        <Icon onClick={() => { setActiveScreen("upgradesShop") }} src={upgradeSrc} alt="Upgrades" draggable="false" />
+        <Icon onClick={() => { setActiveScreen("stats") }} src={statsSrc} alt="Stats" draggable="false" />
+        <Icon onClick={() => { setActiveScreen("achievements") }} src={achievementSrc} alt="Achievements" draggable="false" />
+        <Icon onClick={() => { setActiveScreen("settings") }} src={settingsSrc} alt="Settings" draggable="false" />
     </Wrapper>)
 };
 

@@ -8,7 +8,7 @@ const Stats = () => {
   let totalPurchases = 0;
 
 
-  Object.entries(gameData.purchases).forEach(e =>{
+  Object.entries(gameData.purchases).forEach(e => {
     totalPurchases += e[1].qty
   })
 
@@ -34,7 +34,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Total Clicks<br/>(Auto)
+          Total Clicks<br />(Auto)
         </Desc>
         <Qty>
           {gameData.autoClicksLT}
@@ -43,7 +43,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money<br/>(Lifetime)
+          Money<br />(Lifetime)
         </Desc>
         <Qty>
           {gameData.lifetimeWallet}
@@ -52,7 +52,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money<br/>(Auto)
+          Money<br />(Auto)
         </Desc>
         <Qty>
           {gameData.lifetimeAutoWallet}
@@ -61,7 +61,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Money<br/>(Clicks)
+          Money<br />(Clicks)
         </Desc>
         <Qty>
           {gameData.lifetimeClickWallet}
@@ -70,7 +70,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Fastest<br/>Click
+          Fastest<br />Click
         </Desc>
         <Qty>
           {gameData.fastestClick}ms
@@ -79,7 +79,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Purchased<br/>Upgrades
+          Purchased<br />Upgrades
         </Desc>
         <Qty>
           {gameData.purchasedUpgrades.length}/
@@ -89,7 +89,7 @@ const Stats = () => {
 
       <Container>
         <Desc>
-          Total<br/>Purchases
+          Total<br />Purchases
         </Desc>
         <Qty>
           {totalPurchases}

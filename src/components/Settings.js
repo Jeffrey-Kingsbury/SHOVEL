@@ -13,17 +13,17 @@ const Settings = () => {
     const reset = () => {
         if (window.confirm("Are you sure?\n\nThis will erase all save data. This action cannot be undone.")) {
             if (window.confirm("Last chance to cancel... Are you really sure?")) {
-                setGameData({...gameData, reset:true});
+                setGameData({ ...gameData, reset: true });
             };
         };
     };
 
     const importSave = (e) => {
-        ls.set("import", JSON.parse(e), {encrypt:false});
-        if(JSON.parse(ls.get("import", {decrypt:true})).wallet >= 0 ){
-                ls.set("gameData", JSON.stringify(JSON.parse(ls.get("import", {decrypt:true})), {encrypt:true}));
-                ls.remove("import");
-                window.location.reload();
+        ls.set("import", JSON.parse(e), { encrypt: false });
+        if (JSON.parse(ls.get("import", { decrypt: true })).wallet >= 0) {
+            ls.set("gameData", JSON.stringify(JSON.parse(ls.get("import", { decrypt: true })), { encrypt: true }));
+            ls.remove("import");
+            window.location.reload();
         }
     }
 
@@ -31,26 +31,26 @@ const Settings = () => {
         {!exportSavePop && !importSavePop &&
             <>
                 <Button onClick={() => { reset() }}>RESET</Button>
-                <Button onClick={() => { ls.set("gameData", JSON.stringify(gameData), {encrypt: true}); setExportSavePop(true) }}>EXPORT SAVE</Button>
+                <Button onClick={() => { ls.set("gameData", JSON.stringify(gameData), { encrypt: true }); setExportSavePop(true) }}>EXPORT SAVE</Button>
                 <Button onClick={() => { setImportSavePop(true) }}>IMPORT SAVE</Button>
             </>
-            }
-        {exportSavePop &&
-        <SaveExportContainer>
-            <h3>Copy the code below</h3>
-            <p>Warning: This is experimental and may break the game. Use at your own risk.</p>
-                <SaveExportTextArea defaultValue={localStorage.getItem("gameData")} />
-                <Button onClick={()=>{setExportSavePop(false)}}>Close</Button>
-        </SaveExportContainer>
         }
-                {importSavePop &&
-        <SaveExportContainer>
-            <h3>Paste the save file below</h3>
-            <p>Warning: This is experimental and may break the game. Use at your own risk.</p>
-                <SaveExportTextArea ref={importSaveRef}/>
-                <Button onClick={()=>{importSave(importSaveRef.current.value)}}>Save</Button>
-                <Button onClick={()=>{setImportSavePop(false)}}>Close</Button>
-        </SaveExportContainer>
+        {exportSavePop &&
+            <SaveExportContainer>
+                <h3>Copy the code below</h3>
+                <p>Warning: This is experimental and may break the game. Use at your own risk.</p>
+                <SaveExportTextArea defaultValue={localStorage.getItem("gameData")} />
+                <Button onClick={() => { setExportSavePop(false) }}>Close</Button>
+            </SaveExportContainer>
+        }
+        {importSavePop &&
+            <SaveExportContainer>
+                <h3>Paste the save file below</h3>
+                <p>Warning: This is experimental and may break the game. Use at your own risk.</p>
+                <SaveExportTextArea ref={importSaveRef} />
+                <Button onClick={() => { importSave(importSaveRef.current.value) }}>Save</Button>
+                <Button onClick={() => { setImportSavePop(false) }}>Close</Button>
+            </SaveExportContainer>
         }
 
     </Wrapper>);

@@ -6,27 +6,27 @@ import WalletSrc from "../img/wallet.png";
 import AutomationSrc from "../img/shovel.png";
 import { playerContext } from "../PlayerContext";
 
-const HeaderDesktop = ({activeScreen, setActiveScreen}) => {
+const HeaderDesktop = ({ activeScreen, setActiveScreen }) => {
     const { gameData, calculatePerSecond, isMobile } = useContext(playerContext);
 
     //reset the screen to the main game when moving from a mobile only page to desktop. 
-    useEffect(()=>{
-        if(activeScreen === "upgradesShop" || activeScreen === "achievements" || activeScreen === "shop"){
-            if(!isMobile){
+    useEffect(() => {
+        if (activeScreen === "upgradesShop" || activeScreen === "achievements" || activeScreen === "shop") {
+            if (!isMobile) {
                 setActiveScreen("shovel");
             }
         };
     }, []);
-        
+
     return (
         <Wrapper>
             <StatsWrapper>
-            <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 9999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
-            <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{calculatePerSecond() > 9999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.</Title>
+                <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 9999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
+                <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{calculatePerSecond() > 9999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.</Title>
             </StatsWrapper>
-            <Icon onClick={()=>{setActiveScreen("shovel")}} src={AutomationSrc} alt="Shovel" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("stats")}} src={statsSrc} alt="Stats" draggable="false"/>
-        <Icon onClick={()=>{setActiveScreen("settings")}} src={settingsSrc} alt="Settings" draggable="false"/>
+            <Icon onClick={() => { setActiveScreen("shovel") }} src={AutomationSrc} alt="Shovel" draggable="false" />
+            <Icon onClick={() => { setActiveScreen("stats") }} src={statsSrc} alt="Stats" draggable="false" />
+            <Icon onClick={() => { setActiveScreen("settings") }} src={settingsSrc} alt="Settings" draggable="false" />
         </Wrapper>
     );
 };

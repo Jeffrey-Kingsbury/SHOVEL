@@ -15,7 +15,7 @@ const Shop = () => {
       return 0
     }
 
-    if(!gameData.purchases[name]){
+    if (!gameData.purchases[name]) {
       return 0
     }
 
