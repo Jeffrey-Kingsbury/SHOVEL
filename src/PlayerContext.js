@@ -34,7 +34,7 @@ const PlayerContext = ({ children }) => {
         lifetimeAutoWallet: 0,
         fastestClick: new Date().getTime(),
         perSecond: 0
-    }, "gameData")[0]);
+    }, "SHOVEL___gameData")[0]);
     
 
 //Updates the purchases so when new hires are added, the gameData will contain them as well.

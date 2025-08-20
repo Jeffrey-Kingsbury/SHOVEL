@@ -18,11 +18,18 @@ const HeaderDesktop = ({ activeScreen, setActiveScreen }) => {
         };
     }, []);
 
+    function formatNumber(num) {
+        if(num > 1000000000000) {
+            return num.toExponential(1).toString();
+        }
+        return num > 9999 ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : num;
+    }
+
     return (
         <Wrapper>
             <StatsWrapper>
-                <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{gameData.wallet > 9999 ? gameData.wallet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : gameData.wallet}$</Title>
-                <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{calculatePerSecond() > 9999 ? calculatePerSecond().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : calculatePerSecond()}$/sec.</Title>
+                <Title><Img draggable="false" src={WalletSrc} alt="Your current Wallet" />{formatNumber(gameData.wallet)}$</Title>
+                <Title><Img draggable="false" src={AutomationSrc} alt="Your current automation" />{formatNumber(calculatePerSecond())}$/sec.</Title>
             </StatsWrapper>
             <Icon onClick={() => { setActiveScreen("shovel") }} src={AutomationSrc} alt="Shovel" draggable="false" />
             <Icon onClick={() => { setActiveScreen("stats") }} src={statsSrc} alt="Stats" draggable="false" />
